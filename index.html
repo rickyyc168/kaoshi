@@ -16,6 +16,9 @@
 </head>
 <body>
 
+  <!-- Scroll Progress -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
   <!-- Preloader -->
   <div id="js-preloader" class="js-preloader">
     <div class="preloader-inner">
@@ -38,6 +41,7 @@
               <li class="scroll-to-section"><a href="#cet">四六级</a></li>
               <li class="scroll-to-section"><a href="#finals">期末考试</a></li>
               <li class="scroll-to-section"><a href="#thesis">论文答辩</a></li>
+              <li class="scroll-to-section"><a href="#luckyDraw">锦鲤抽奖</a></li>
               <li class="scroll-to-section"><a href="#reviews">晒单区</a></li>
               <li class="scroll-to-section">
                 <div class="main-red-button">
@@ -53,7 +57,9 @@
   </header>
 
   <!-- Hero Banner -->
-  <div class="main-banner wow fadeIn" id="top" data-wow-duration="1s" data-wow-delay="0.5s">
+  <div class="main-banner wow fadeIn" id="top" data-wow-duration="1s" data-wow-delay="0.5s" style="position:relative">
+    <!-- Brain Particles Background -->
+    <div class="brain-particles" id="brainParticles"></div>
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
@@ -88,7 +94,7 @@
               <div class="right-image wow fadeInRight" data-wow-duration="1s" data-wow-delay="0.5s">
                 <div class="hero-brain">
                   <div class="brain-glow"></div>
-                  <span class="brain-emoji">🧠</span>
+                  <span class="brain-emoji" id="brainEmoji">🧠</span>
                   <div class="brain-ring ring-1"></div>
                   <div class="brain-ring ring-2"></div>
                   <div class="brain-ring ring-3"></div>
@@ -97,6 +103,22 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search & Filter Bar -->
+  <div class="section" style="padding-top:60px;padding-bottom:0">
+    <div class="container">
+      <div class="search-bar">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="productSearch" placeholder="搜索学霸脑子... 试试输入"数学"或"写作"">
+      </div>
+      <div class="tab-filters">
+        <button class="tab-filter active" data-filter="all">全部商品</button>
+        <button class="tab-filter" data-filter="cet">📚 四六级</button>
+        <button class="tab-filter" data-filter="finals">📝 期末考试</button>
+        <button class="tab-filter" data-filter="thesis">🎓 论文答辩</button>
       </div>
     </div>
   </div>
@@ -173,6 +195,26 @@
         </div>
         <div class="col-lg-6">
           <div class="row" id="thesisProducts"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🎁 锦鲤抽奖 -->
+  <div id="luckyDraw" class="lucky-draw-section section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-6 offset-lg-3">
+          <div class="section-heading wow bounceIn" data-wow-duration="1s" data-wow-delay="0.2s">
+            <h6>🍀 今日欧气</h6>
+            <h2>锦鲤<em>抽奖</em>大转盘</h2>
+            <p>点击宝箱试试手气！可能抽到折扣券、隐藏款 Buff，也可能……什么都没有 😂</p>
+          </div>
+          <div class="lucky-box wow bounceIn" data-wow-duration="1s" data-wow-delay="0.4s" id="luckyBox" onclick="openLuckyDraw()">
+            🎁
+          </div>
+          <div class="lucky-result" id="luckyResult"></div>
+          <div class="lucky-remaining" id="luckyRemaining">今日剩余 3 次抽奖机会</div>
         </div>
       </div>
     </div>
@@ -265,6 +307,9 @@
     </div>
   </div>
 
+  <!-- Back to Top -->
+  <button class="back-to-top" id="backToTop">↑</button>
+
   <!-- Scripts -->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -273,5 +318,23 @@
   <script src="assets/js/imagesloaded.js"></script>
   <script src="assets/js/templatemo-custom.js"></script>
   <script src="app.js"></script>
+  <script>
+    // Generate brain particles in hero
+    (function() {
+      var emojis = ['🧠', '✨', '💡', '⚡', '🎓', '📖', '🔬'];
+      var container = document.getElementById('brainParticles');
+      if (!container) return;
+      for (var i = 0; i < 20; i++) {
+        var p = document.createElement('span');
+        p.className = 'particle';
+        p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        p.style.left = Math.random() * 100 + '%';
+        p.style.fontSize = (Math.random() * 16 + 12) + 'px';
+        p.style.animationDelay = (Math.random() * 6) + 's';
+        p.style.animationDuration = (Math.random() * 4 + 4) + 's';
+        container.appendChild(p);
+      }
+    })();
+  </script>
 </body>
 </html>
