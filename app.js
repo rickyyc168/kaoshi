@@ -301,8 +301,8 @@ function showCheckoutModal() {
     + '</div>'
     + '<div class="checkout-payment">'
     + '<p>扫码支付（模拟）</p>'
-    + '<div class="qr-placeholder">📱 支付二维码占位<br>（接入微信/支付宝后替换）<br><br>💰 ¥' + total.toFixed(2) + '</div>'
-    + '<button class="main-button" onclick="simulatePayment()">💰 模拟支付成功</button>'
+    + '<div class="qr-real-wrap"><img src="assets/images/pay-qrcode.png" alt="扫码支付" class="qr-real-img"/><div class="qr-amount">💰 ¥' + total.toFixed(2) + '</div><div class="qr-steps"><p class="qr-step">1️⃣ 请使用 <strong>微信/支付宝</strong> 扫描上方二维码</p><p class="qr-step">2️⃣ 输入对应金额 <strong>¥' + total.toFixed(2) + '</strong> 完成支付</p><p class="qr-step">3️⃣ 支付完成后点击下方按钮确认</p></div>'
+    + '<button class="main-button" onclick="simulatePayment()">💰 ✅ 我已支付，确认订单</button>'
     + '<p class="checkout-note">⚠️ 虚拟娱乐商品，无实际功效，不保证考试通过</p>'
     + '</div>';
 
