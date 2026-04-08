@@ -1,8 +1,30 @@
-/* ===== Custom CSS for 不是裸考 — works on top of template CSS ===== */
+/* ===== Custom CSS for 不是裸考 — 改进版 ===== */
 
 /* Override body font */
 body {
   font-family: 'Noto Sans SC', 'Poppins', sans-serif;
+  overflow-x: hidden;
+}
+
+/* ===== BRAIN PARTICLES BACKGROUND ===== */
+.brain-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+.brain-particles .particle {
+  position: absolute;
+  font-size: 20px;
+  opacity: 0;
+  animation: particleFloat 6s ease-in-out infinite;
+}
+@keyframes particleFloat {
+  0% { opacity: 0; transform: translateY(100vh) rotate(0deg); }
+  10% { opacity: 0.6; }
+  90% { opacity: 0.6; }
+  100% { opacity: 0; transform: translateY(-20vh) rotate(360deg); }
 }
 
 /* ===== HERO BRAIN ANIMATION ===== */
@@ -17,10 +39,21 @@ body {
   animation: brainFloat 3s ease-in-out infinite;
   position: relative; z-index: 2;
   filter: drop-shadow(0 0 30px rgba(238,90,36,0.5));
+  cursor: pointer;
+  user-select: none;
+}
+.brain-emoji:active {
+  animation: brainShake 0.3s ease-in-out;
 }
 @keyframes brainFloat {
   0%, 100% { transform: translateY(0) scale(1); }
   50% { transform: translateY(-15px) scale(1.05); }
+}
+@keyframes brainShake {
+  0%, 100% { transform: rotate(0deg) scale(1.1); }
+  25% { transform: rotate(-10deg) scale(1.15); }
+  50% { transform: rotate(10deg) scale(1.15); }
+  75% { transform: rotate(-5deg) scale(1.1); }
 }
 .brain-glow {
   position: absolute; inset: 20px;
@@ -54,6 +87,7 @@ body {
   display: block;
   font-size: 28px; font-weight: 800;
   color: #ee5a24;
+  transition: color 0.3s;
 }
 .hero-stat-label {
   font-size: 13px;
@@ -69,7 +103,7 @@ body {
   margin-bottom: 10px;
 }
 
-/* ===== PRODUCT CARDS (Bootstrap grid) ===== */
+/* ===== PRODUCT CARDS ===== */
 .buff-card {
   margin-bottom: 30px;
 }
@@ -97,6 +131,18 @@ body {
   background: rgba(255,255,255,0.06);
 }
 .buff-card-inner:hover::before { transform: scaleX(1); }
+
+/* ★ HOT badge */
+.buff-card-inner.hot::after {
+  content: '🔥 HOT';
+  position: absolute; top: 12px; right: -28px;
+  background: #ee5a24;
+  color: #fff;
+  font-size: 10px; font-weight: 700;
+  padding: 2px 32px;
+  transform: rotate(45deg);
+  letter-spacing: 1px;
+}
 
 .buff-emoji {
   font-size: 48px;
@@ -145,6 +191,8 @@ body {
   border-radius: 8px; border: none;
   transition: all 0.3s;
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
 }
 .buff-add:hover {
   transform: scale(1.05);
@@ -154,7 +202,20 @@ body {
   background: #27ae60;
 }
 
-/* ===== SERVICE ITEMS in Finals Section ===== */
+/* Ripple effect on buttons */
+.buff-add .ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.4);
+  transform: scale(0);
+  animation: ripple 0.6s linear;
+  pointer-events: none;
+}
+@keyframes ripple {
+  to { transform: scale(4); opacity: 0; }
+}
+
+/* ===== SERVICE ITEMS ===== */
 .services .buff-card-inner {
   padding: 20px 16px;
 }
@@ -168,6 +229,66 @@ body {
   animation: brainFloat 3s ease-in-out infinite;
 }
 
+/* ===== LUCKY DRAW ===== */
+.lucky-draw-section {
+  padding: 80px 0;
+  text-align: center;
+}
+.lucky-box {
+  width: 120px; height: 120px;
+  margin: 30px auto;
+  background: linear-gradient(135deg, #ee5a24, #f0932b);
+  border-radius: 20px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 60px;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 8px 30px rgba(238,90,36,0.3);
+  position: relative;
+}
+.lucky-box:hover {
+  transform: scale(1.08);
+  box-shadow: 0 12px 40px rgba(238,90,36,0.5);
+}
+.lucky-box.opening {
+  animation: boxShake 0.5s ease-in-out;
+}
+@keyframes boxShake {
+  0%, 100% { transform: rotate(0deg); }
+  20% { transform: rotate(-15deg) scale(1.1); }
+  40% { transform: rotate(15deg) scale(1.1); }
+  60% { transform: rotate(-10deg) scale(1.05); }
+  80% { transform: rotate(10deg) scale(1.05); }
+}
+.lucky-result {
+  margin-top: 20px;
+  padding: 20px;
+  background: rgba(238,90,36,0.1);
+  border: 1px solid rgba(238,90,36,0.2);
+  border-radius: 16px;
+  display: none;
+}
+.lucky-result.show { display: block; animation: fadeInUp 0.5s ease; }
+.lucky-result .lucky-title {
+  font-size: 24px; font-weight: 800;
+  color: #ee5a24;
+  margin-bottom: 8px;
+}
+.lucky-result .lucky-desc {
+  font-size: 14px;
+  color: rgba(255,255,255,0.6);
+}
+.lucky-remaining {
+  margin-top: 12px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.3);
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 /* ===== IQ DISPLAY ===== */
 .iq-display { text-align: center; padding: 40px 0; }
 .iq-number {
@@ -175,6 +296,7 @@ body {
   color: #ee5a24;
   line-height: 1;
   margin-bottom: 8px;
+  text-shadow: 0 0 30px rgba(238,90,36,0.3);
 }
 .iq-label {
   font-size: 16px;
@@ -209,6 +331,11 @@ body {
   border: 1px solid rgba(255,255,255,0.06);
   border-radius: 16px;
   padding: 24px;
+  transition: all 0.3s;
+}
+.review-card-inner:hover {
+  transform: translateY(-4px);
+  border-color: rgba(238,90,36,0.2);
 }
 .review-header {
   display: flex; align-items: center; gap: 12px;
@@ -232,6 +359,12 @@ body {
   color: #f0932b;
   border-radius: 8px;
 }
+/* ★ Verified purchase badge */
+.review-verified {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 11px; color: #27ae60;
+  margin-left: 8px;
+}
 
 /* ===== CART SIDEBAR ===== */
 .cart-overlay {
@@ -247,7 +380,7 @@ body {
   width: 380px; max-width: 90vw; height: 100vh;
   background: #1a1a2e;
   z-index: 9999;
-  transition: right 0.35s ease;
+  transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex; flex-direction: column;
   box-shadow: -10px 0 40px rgba(0,0,0,0.4);
 }
@@ -261,6 +394,7 @@ body {
 .cart-close {
   font-size: 28px; color: rgba(255,255,255,0.5);
   background: none; border: none; cursor: pointer;
+  transition: color 0.2s;
 }
 .cart-close:hover { color: #fff; }
 .cart-items {
@@ -274,6 +408,7 @@ body {
   display: flex; align-items: center; gap: 12px;
   padding: 12px 0;
   border-bottom: 1px solid rgba(255,255,255,0.04);
+  animation: fadeInUp 0.3s ease;
 }
 .cart-item-emoji { font-size: 28px; }
 .cart-item-info { flex: 1; }
@@ -289,6 +424,7 @@ body {
   color: #fff; font-size: 16px;
   border: none; cursor: pointer;
   display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s;
 }
 .cart-item-qty button:hover { background: rgba(238,90,36,0.3); }
 .cart-item-qty span { color: #fff; font-size: 14px; font-weight: 600; min-width: 20px; text-align: center; }
@@ -308,6 +444,15 @@ body {
 .cart-badge {
   background: #ee5a24; color: #fff; font-size: 11px; font-weight: 700;
   padding: 1px 6px; border-radius: 10px; margin-left: 4px;
+  transition: transform 0.3s;
+}
+.cart-badge.bump {
+  animation: badgeBump 0.3s ease;
+}
+@keyframes badgeBump {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.4); }
+  100% { transform: scale(1); }
 }
 
 /* ===== MODAL ===== */
@@ -328,13 +473,14 @@ body {
   max-height: 85vh; overflow-y: auto;
   position: relative;
   transform: scale(0.9);
-  transition: transform 0.3s;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 .modal-overlay.active .modal-box { transform: scale(1); }
 .modal-close {
   position: absolute; top: 12px; right: 16px;
   font-size: 28px; color: rgba(255,255,255,0.4);
   background: none; border: none; cursor: pointer; z-index: 1;
+  transition: color 0.2s;
 }
 .modal-close:hover { color: #fff; }
 .modal-body { padding: 36px 28px; }
@@ -374,7 +520,7 @@ body {
   margin-top: 16px;
 }
 
-/* Buff Certificate */
+/* Buff Certificate - IMPROVED */
 .cert { text-align: center; }
 .cert-header {
   font-size: 13px; color: #ee5a24; letter-spacing: 3px;
@@ -389,6 +535,7 @@ body {
   margin: 0 auto 20px;
   border-radius: 12px; overflow: hidden;
   border: 2px solid rgba(238,90,36,0.3);
+  box-shadow: 0 0 30px rgba(238,90,36,0.2);
 }
 .cert-canvas-wrap canvas {
   display: block; width: 100%; height: auto;
@@ -417,9 +564,136 @@ body {
   z-index: 10001;
   opacity: 0; transition: all 0.4s ease;
   white-space: nowrap;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
 }
 .toast.show {
   opacity: 1; transform: translateX(-50%) translateY(0);
+}
+
+/* ===== CONFETTI ===== */
+.confetti-piece {
+  position: fixed;
+  z-index: 10002;
+  pointer-events: none;
+  animation: confettiFall 1.5s ease-out forwards;
+}
+@keyframes confettiFall {
+  0% { opacity: 1; transform: translateY(0) rotate(0deg) scale(1); }
+  100% { opacity: 0; transform: translateY(400px) rotate(720deg) scale(0.3); }
+}
+
+/* ===== SEARCH BAR ===== */
+.search-bar {
+  max-width: 400px;
+  margin: 0 auto 30px;
+  position: relative;
+}
+.search-bar input {
+  width: 100%;
+  padding: 12px 20px 12px 44px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.3s;
+  font-family: 'Noto Sans SC', sans-serif;
+}
+.search-bar input:focus {
+  border-color: rgba(238,90,36,0.5);
+  background: rgba(255,255,255,0.08);
+  box-shadow: 0 0 20px rgba(238,90,36,0.1);
+}
+.search-bar input::placeholder {
+  color: rgba(255,255,255,0.3);
+}
+.search-bar .search-icon {
+  position: absolute; left: 14px; top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  opacity: 0.4;
+}
+
+/* ===== TAB FILTERS ===== */
+.tab-filters {
+  display: flex; justify-content: center; gap: 10px;
+  margin-bottom: 30px; flex-wrap: wrap;
+}
+.tab-filter {
+  padding: 8px 20px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  color: rgba(255,255,255,0.6);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-family: 'Noto Sans SC', sans-serif;
+}
+.tab-filter:hover {
+  border-color: rgba(238,90,36,0.3);
+  color: #fff;
+}
+.tab-filter.active {
+  background: linear-gradient(135deg, #ee5a24, #f0932b);
+  border-color: transparent;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* ===== SCROLL PROGRESS ===== */
+.scroll-progress {
+  position: fixed; top: 0; left: 0;
+  height: 3px; z-index: 99999;
+  background: linear-gradient(90deg, #ee5a24, #f0932b, #ffd700);
+  transition: width 0.1s linear;
+  box-shadow: 0 0 10px rgba(238,90,36,0.5);
+}
+
+/* ===== BACK TO TOP ===== */
+.back-to-top {
+  position: fixed; bottom: 30px; right: 30px;
+  width: 44px; height: 44px;
+  background: linear-gradient(135deg, #ee5a24, #f0932b);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; color: #fff;
+  cursor: pointer; z-index: 9990;
+  opacity: 0; transform: translateY(20px);
+  transition: all 0.3s;
+  box-shadow: 0 4px 15px rgba(238,90,36,0.4);
+  border: none;
+}
+.back-to-top.visible {
+  opacity: 1; transform: translateY(0);
+}
+.back-to-top:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(238,90,36,0.5);
+}
+
+/* ===== SHARE BUTTONS ===== */
+.share-section {
+  text-align: center;
+  margin-top: 16px;
+}
+.share-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 16px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  color: rgba(255,255,255,0.7);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin: 4px;
+}
+.share-btn:hover {
+  background: rgba(238,90,36,0.2);
+  border-color: rgba(238,90,36,0.3);
+  color: #fff;
 }
 
 /* ===== RESPONSIVE ===== */
@@ -429,4 +703,6 @@ body {
   .brain-emoji { font-size: 80px; }
   .section-icon-big { font-size: 100px; padding: 30px 0; }
   .iq-number { font-size: 48px; }
+  .lucky-box { width: 100px; height: 100px; font-size: 48px; }
+  .back-to-top { bottom: 20px; right: 20px; width: 40px; height: 40px; }
 }
