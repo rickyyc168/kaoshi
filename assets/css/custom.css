@@ -696,6 +696,48 @@ body {
   color: #fff;
 }
 
+
+/* ===== REAL QR PAYMENT ===== */
+.qr-real-wrap {
+  text-align: center;
+  margin: 0 auto;
+}
+.qr-real-img {
+  width: 220px;
+  height: auto;
+  border-radius: 16px;
+  border: 3px solid rgba(238,90,36,0.4);
+  box-shadow: 0 4px 20px rgba(238,90,36,0.2);
+  margin-bottom: 12px;
+  transition: transform 0.3s;
+}
+.qr-real-img:hover {
+  transform: scale(1.03);
+}
+.qr-amount {
+  font-size: 28px;
+  font-weight: 900;
+  color: #ee5a24;
+  margin-bottom: 16px;
+  text-shadow: 0 0 20px rgba(238,90,36,0.3);
+}
+.qr-steps {
+  text-align: left;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+}
+.qr-step {
+  font-size: 14px;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+.qr-step:last-child { margin-bottom: 0; }
+.qr-step strong { color: #f0932b; }
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 768px) {
   .hero-stats { flex-direction: column; gap: 16px; }
