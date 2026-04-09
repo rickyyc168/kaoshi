@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1a0533"/><stop offset="100%" stop-color="#0a1628"/></linearGradient></defs>
+  <rect width="200" height="200" rx="24" fill="url(#bg)"/>
+  <circle cx="100" cy="88" r="36" fill="#f0c89a"/>
+  <!-- Combed back hair -->
+  <path d="M66 80 Q66 50 100 48 Q134 50 134 80" fill="#1a1a1a"/>
+  <!-- Eyes -->
+  <ellipse cx="84" cy="86" rx="4" ry="5" fill="#2c3e50"/>
+  <ellipse cx="116" cy="86" rx="4" ry="5" fill="#2c3e50"/>
+  <!-- Warm smile -->
+  <path d="M88 106 Q100 115 112 106" fill="none" stroke="#c0392b" stroke-width="2" stroke-linecap="round"/>
+  <!-- Chinese suit (Mao suit) -->
+  <path d="M70 126 L100 148 L130 126" fill="#2c3e50"/>
+  <line x1="100" y1="126" x2="100" y2="148" stroke="#34495e" stroke-width="1"/>
+  <!-- Abacus -->
+  <rect x="140" y="65" width="30" height="45" rx="3" fill="none" stroke="#c8a050" stroke-width="2"/>
+  <line x1="140" y1="78" x2="170" y2="78" stroke="#c8a050" stroke-width="1"/>
+  <line x1="140" y1="91" x2="170" y2="91" stroke="#c8a050" stroke-width="1"/>
+  <circle cx="150" cy="72" r="3" fill="#ee5a24"/>
+  <circle cx="158" cy="72" r="3" fill="#f0932b"/>
+  <circle cx="150" cy="85" r="3" fill="#ee5a24"/>
+  <circle cx="162" cy="85" r="3" fill="#f0932b"/>
+  <circle cx="154" cy="98" r="3" fill="#ee5a24"/>
+  <text x="100" y="175" text-anchor="middle" fill="#ee5a24" font-size="12" font-weight="bold" font-family="sans-serif">🧮 +100 IQ</text>
+</svg>
