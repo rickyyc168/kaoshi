@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#0a1628"/><stop offset="100%" stop-color="#162040"/></linearGradient></defs>
+  <rect width="200" height="200" rx="24" fill="url(#bg)"/>
+  <!-- Face -->
+  <circle cx="100" cy="88" r="36" fill="#f0c89a"/>
+  <!-- Hair -->
+  <path d="M66 80 Q66 48 100 46 Q134 48 134 80 L128 76 Q128 56 100 54 Q72 56 72 76 Z" fill="#1a1a1a"/>
+  <!-- Eyes -->
+  <ellipse cx="84" cy="88" rx="4" ry="5" fill="#2c3e50"/>
+  <ellipse cx="116" cy="88" rx="4" ry="5" fill="#2c3e50"/>
+  <!-- Confident smile -->
+  <path d="M88 106 Q100 116 112 106" fill="none" stroke="#c0392b" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Suit -->
+  <path d="M70 128 L100 150 L130 128 L120 128 L100 140 L80 128 Z" fill="#2c3e50"/>
+  <path d="M95 128 L100 142 L105 128" fill="#e74c3c"/>
+  <!-- Tie -->
+  <line x1="100" y1="130" x2="100" y2="148" stroke="#e74c3c" stroke-width="3"/>
+  <text x="100" y="175" text-anchor="middle" fill="#ee5a24" font-size="12" font-weight="bold" font-family="sans-serif">📚 +900 IQ</text>
+</svg>
