@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#0a1628"/><stop offset="100%" stop-color="#1a2744"/></linearGradient></defs>
+  <rect width="200" height="200" rx="24" fill="url(#bg)"/>
+  <!-- Face -->
+  <circle cx="100" cy="90" r="36" fill="#f5d0a9"/>
+  <!-- 18th century wig -->
+  <path d="M62 85 Q58 55 80 46 Q90 42 100 44 Q110 42 120 46 Q142 55 138 85" fill="#e8e8e8"/>
+  <path d="M62 85 Q56 100 58 115 Q60 105 66 95" fill="#e8e8e8"/>
+  <path d="M138 85 Q144 100 142 115 Q140 105 134 95" fill="#e8e8e8"/>
+  <!-- Ponytail -->
+  <path d="M100 44 Q105 38 110 42 Q115 36 118 44" fill="#e8e8e8"/>
+  <!-- Eyes -->
+  <ellipse cx="86" cy="88" rx="4" ry="5" fill="#2c3e50"/>
+  <ellipse cx="114" cy="88" rx="4" ry="5" fill="#2c3e50"/>
+  <!-- Gentle smile -->
+  <path d="M90 106 Q100 114 110 106" fill="none" stroke="#c0392b" stroke-width="2" stroke-linecap="round"/>
+  <!-- Math symbols floating -->
+  <text x="50" y="55" fill="#ee5a24" font-size="16" opacity="0.6" font-family="serif">∑</text>
+  <text x="145" y="60" fill="#f0932b" font-size="14" opacity="0.5" font-family="serif">∫</text>
+  <text x="42" y="120" fill="#ffd700" font-size="12" opacity="0.4" font-family="serif">π</text>
+  <text x="152" y="115" fill="#ee5a24" font-size="14" opacity="0.5" font-family="serif">∞</text>
+  <!-- Collar -->
+  <path d="M76 130 L100 146 L124 130" fill="#2c3e50"/>
+  <text x="100" y="175" text-anchor="middle" fill="#ee5a24" font-size="12" font-weight="bold" font-family="sans-serif">📐 +1000 IQ</text>
+</svg>
