@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1a0533"/><stop offset="100%" stop-color="#2a0a4a"/></linearGradient></defs>
+  <rect width="200" height="200" rx="24" fill="url(#bg)"/>
+  <!-- Face -->
+  <circle cx="100" cy="90" r="36" fill="#f5d0a9"/>
+  <!-- Elizabethan hair -->
+  <path d="M64 82 Q60 55 80 48 Q88 42 100 44 Q112 42 120 48 Q140 55 136 82" fill="#8B6914"/>
+  <path d="M64 82 Q58 90 60 100" fill="#8B6914"/>
+  <path d="M136 82 Q142 90 140 100" fill="#8B6914"/>
+  <!-- Curly sides -->
+  <circle cx="62" cy="95" r="6" fill="#8B6914"/>
+  <circle cx="138" cy="95" r="6" fill="#8B6914"/>
+  <!-- Eyes -->
+  <ellipse cx="86" cy="88" rx="4" ry="5" fill="#2c3e50"/>
+  <ellipse cx="114" cy="88" rx="4" ry="5" fill="#2c3e50"/>
+  <!-- Pointed beard -->
+  <path d="M82 108 Q90 110 100 108 Q110 110 118 108 L110 128 Q100 135 90 128 Z" fill="#8B6914"/>
+  <!-- Ruff collar -->
+  <ellipse cx="100" cy="132" rx="45" ry="16" fill="#f5f5f0" stroke="#ddd" stroke-width="1"/>
+  <path d="M60 132 Q70 124 80 132 Q90 124 100 132 Q110 124 120 132 Q130 124 140 132" fill="none" stroke="#ddd" stroke-width="1"/>
+  <text x="100" y="175" text-anchor="middle" fill="#ffd700" font-size="12" font-weight="bold" font-family="sans-serif">✒️ +1200 IQ</text>
+</svg>
