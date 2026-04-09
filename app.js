@@ -63,12 +63,36 @@ $(document).ready(function () {
   initBackToTop();
   initBrainClick();
   initSearchAndFilter();
+  initSectionReveal();
 
   // Re-trigger wow.js for dynamically added elements
   setTimeout(function () {
     new WOW({ scrollContainer: null }).init();
   }, 200);
+
+  // Remove preloader
+  setTimeout(function () {
+    var preloader = document.getElementById('js-preloader');
+    if (preloader) preloader.classList.add('loaded');
+  }, 600);
 });
+
+// ===== SECTION SCROLL REVEAL =====
+function initSectionReveal() {
+  var sections = document.querySelectorAll('.section, .our-services, .about-us, .lucky-draw-section, .our-portfolio, .our-blog');
+  sections.forEach(function (s) { s.classList.add('section-reveal'); });
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+  sections.forEach(function (s) { observer.observe(s); });
+}
 
 // ===== RENDER PRODUCTS =====
 function renderProducts(filter) {
