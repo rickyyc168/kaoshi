@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1a0533"/><stop offset="100%" stop-color="#2a0a4a"/></linearGradient></defs>
+  <rect width="200" height="200" rx="24" fill="url(#bg)"/>
+  <circle cx="100" cy="88" r="36" fill="#f0c89a"/>
+  <!-- Combed back hair with parting -->
+  <path d="M66 80 Q66 52 100 50 Q134 52 134 80" fill="#1a1a1a"/>
+  <path d="M82 52 Q90 48 100 50" fill="#2c2c2c" stroke="#1a1a1a" stroke-width="1"/>
+  <!-- Eyes - sharp, intelligent -->
+  <path d="M78 86 L88 83 L92 88 L84 90 Z" fill="#2c3e50"/>
+  <path d="M108 86 L118 83 L122 88 L114 90 Z" fill="#2c3e50"/>
+  <circle cx="88" cy="86" r="1.5" fill="#fff"/>
+  <circle cx="116" cy="86" r="1.5" fill="#fff"/>
+  <!-- Stern but kind expression -->
+  <path d="M90 108 Q100 114 110 108" fill="none" stroke="#c0392b" stroke-width="2" stroke-linecap="round"/>
+  <!-- Formal suit -->
+  <path d="M68 126 L100 150 L132 126" fill="#2c3e50"/>
+  <path d="M92 126 L100 142 L108 126" fill="#1a252f"/>
+  <path d="M95 126 L100 136 L105 126" fill="#e74c3c"/>
+  <!-- Rocket -->
+  <path d="M150 105 L155 60 L160 105 Z" fill="#e74c3c" opacity="0.7"/>
+  <rect x="148" y="100" width="14" height="8" rx="1" fill="#7f8c8d"/>
+  <path d="M148 108 L144 115 L152 110" fill="#ee5a24" opacity="0.7"/>
+  <path d="M162 108 L166 115 L158 110" fill="#ee5a24" opacity="0.7"/>
+  <!-- Flame -->
+  <ellipse cx="155" cy="116" rx="4" ry="8" fill="#ffd700" opacity="0.6"/>
+  <ellipse cx="155" cy="118" rx="3" ry="6" fill="#ee5a24" opacity="0.8"/>
+  <text x="100" y="175" text-anchor="middle" fill="#ffd700" font-size="12" font-weight="bold" font-family="sans-serif">🚀 +2500 IQ</text>
+</svg>
