@@ -382,9 +382,10 @@ function confirmPayment(orderId) {
   btn.disabled = true;
   btn.textContent = '⏳ 提交中...';
 
-  fetch('/api/order/' + orderId, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' }
+  fetch('/api/order', {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ orderId: orderId })
   })
   .then(function (r) { return r.json(); })
   .then(function (data) {
