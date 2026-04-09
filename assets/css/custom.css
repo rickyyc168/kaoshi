@@ -33,6 +33,17 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg-dark);
+}
+
+/* 统一所有专区背景，与首页 hero 保持一致 */
+.our-services,
+.about-us,
+.lucky-draw-section,
+.our-portfolio,
+.call-to-action {
+  background-color: var(--bg-dark) !important;
+  background-image: none !important;
 }
 
 /* Custom Scrollbar */
