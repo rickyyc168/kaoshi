@@ -307,16 +307,21 @@ function initCart() {
 }
 
 // ===== CHECKOUT MODAL =====
+var currentOrderId = null;
+var pollTimer = null;
+
 function showCheckoutModal() {
   var subtotal = cart.reduce(function (s, c) { return s + c.price * c.qty; }, 0);
   var total = subtotal * discount;
-  var discountText = discount < 1
-    ? '<div class="checkout-discount" style="color:#27ae60;font-size:14px;text-align:right;margin-top:8px">🎉 已使用 ' + Math.round((1 - discount) * 100) + '% 折扣券</div>'
-    : '';
 
+  // 先显示加载中
   var itemsHtml = cart.map(function (c) {
     return '<div class="checkout-item"><span>' + c.emoji + ' ' + c.name + ' × ' + c.qty + '</span><span>¥' + (c.price * c.qty).toFixed(2) + '</span></div>';
   }).join('');
+
+  var discountText = discount < 1
+    ? '<div class="checkout-discount" style="color:#27ae60;font-size:14px;text-align:right;margin-top:8px">🎉 已使用 ' + Math.round((1 - discount) * 100) + '% 折扣券</div>'
+    : '';
 
   var html = '<div class="checkout-summary">'
     + '<h3>⚡ 确认订单</h3>'
@@ -324,38 +329,106 @@ function showCheckoutModal() {
     + discountText
     + '<div class="checkout-total"><span>合计</span><span>¥' + total.toFixed(2) + '</span></div>'
     + '</div>'
-    + '<div class="checkout-payment">'
-    + '<p>扫码支付（模拟）</p>'
-    + '<div class="qr-real-wrap"><img src="assets/images/pay-qrcode.png" alt="扫码支付" class="qr-real-img"/><div class="qr-amount">💰 ¥' + total.toFixed(2) + '</div><div class="qr-steps"><p class="qr-step">1️⃣ 请使用 <strong>微信/支付宝</strong> 扫描上方二维码</p><p class="qr-step">2️⃣ 输入对应金额 <strong>¥' + total.toFixed(2) + '</strong> 完成支付</p><p class="qr-step">3️⃣ 支付完成后点击下方按钮确认</p></div>'
-    + '<button class="main-button" onclick="simulatePayment()">💰 ✅ 我已支付，确认订单</button>'
-    + '<p class="checkout-note">⚠️ 虚拟娱乐商品，无实际功效，不保证考试通过</p>'
+    + '<div class="checkout-payment" id="checkoutPayment">'
+    + '<p style="color:var(--text-muted)">⏳ 正在创建订单...</p>'
     + '</div>';
 
   $('#modalBody').html(html);
   openModal();
+
+  // 创建订单
+  var orderItems = cart.map(function (c) {
+    return { id: c.id, name: c.name, emoji: c.emoji, price: c.price, qty: c.qty };
+  });
+
+  fetch('/api/order', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ items: orderItems, total: total, discount: discount })
+  })
+  .then(function (r) { return r.json(); })
+  .then(function (data) {
+    if (data.error) {
+      $('#checkoutPayment').html('<p style="color:var(--red)">❌ ' + data.error + '</p>');
+      return;
+    }
+    currentOrderId = data.orderId;
+    showPaymentQR(total, data.orderId);
+  })
+  .catch(function () {
+    $('#checkoutPayment').html('<p style="color:var(--red)">❌ 网络错误，请重试</p>');
+  });
 }
 
-function simulatePayment() {
-  closeModal();
-  // Big confetti burst for successful payment
-  setTimeout(function () {
-    for (var i = 0; i < 5; i++) {
-      (function (idx) {
-        setTimeout(function () {
-          burstConfetti(
-            Math.random() * window.innerWidth,
-            Math.random() * window.innerHeight * 0.5,
-            20
-          );
-        }, idx * 200);
-      })(i);
+function showPaymentQR(total, orderId) {
+  var payHtml = '<p>用微信扫下方二维码付款</p>'
+    + '<div class="qr-real-wrap">'
+    + '<img src="assets/images/wechat-qr.png" alt="微信收款" class="qr-real-img"/>'
+    + '<div class="qr-amount">💰 ¥' + total.toFixed(2) + '</div>'
+    + '<div class="qr-steps">'
+    + '<p class="qr-step">1️⃣ 长按或截图保存二维码，打开<strong>微信</strong>扫码</p>'
+    + '<p class="qr-step">2️⃣ 输入金额 <strong>¥' + total.toFixed(2) + '</strong>，备注填写 <strong>' + orderId + '</strong></p>'
+    + '<p class="qr-step">3️⃣ 支付完成后点击下方按钮</p>'
+    + '</div>'
+    + '<button class="main-button" onclick="confirmPayment(\'' + orderId + '\')">💰 ✅ 我已付款</button>'
+    + '<p class="checkout-note">⚠️ 请务必输入正确金额 ¥' + total.toFixed(2) + ' 并备注订单号 ' + orderId + '</p>'
+    + '</div>';
+
+  $('#checkoutPayment').html(payHtml);
+}
+
+function confirmPayment(orderId) {
+  var btn = event.target;
+  btn.disabled = true;
+  btn.textContent = '⏳ 提交中...';
+
+  fetch('/api/order/' + orderId, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' }
+  })
+  .then(function (r) { return r.json(); })
+  .then(function (data) {
+    if (data.error) {
+      btn.disabled = false;
+      btn.textContent = '💰 ✅ 我已付款';
+      showToast('❌ ' + data.error);
+      return;
     }
-  }, 200);
-  setTimeout(function () {
-    showCertificate();
+
+    // 显示确认成功
+    $('#checkoutPayment').html(
+      '<div style="text-align:center;padding:30px 0">'
+      + '<div style="font-size:60px;margin-bottom:16px">🎉</div>'
+      + '<h3 style="color:var(--text-primary);margin-bottom:8px">已收到付款确认</h3>'
+      + '<p style="color:var(--text-dim);font-size:14px">订单号: ' + orderId + '</p>'
+      + '<p style="color:var(--text-dim);font-size:13px;margin-top:12px">管理员将在 1-5 分钟内核验，核验通过后 Buff 即刻生效！</p>'
+      + '</div>'
+    );
+
+    // 清空购物车
     cart = [];
     updateCartUI();
-  }, 500);
+
+    // 纸屑庆祝
+    setTimeout(function () {
+      for (var i = 0; i < 3; i++) {
+        (function (idx) {
+          setTimeout(function () {
+            burstConfetti(
+              Math.random() * window.innerWidth,
+              Math.random() * window.innerHeight * 0.5,
+              15
+            );
+          }, idx * 300);
+        })(i);
+      }
+    }, 200);
+  })
+  .catch(function () {
+    btn.disabled = false;
+    btn.textContent = '💰 ✅ 我已付款';
+    showToast('❌ 网络错误');
+  });
 }
 
 // ===== BUFF CERTIFICATE =====

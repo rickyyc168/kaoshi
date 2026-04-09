@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>管理后台 — 订单核验</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0e1a;
+      --card: rgba(20,24,40,0.85);
+      --border: rgba(255,255,255,0.08);
+      --primary: #ee5a24;
+      --primary-light: #f0932b;
+      --gold: #ffd700;
+      --green: #27ae60;
+      --red: #e74c3c;
+      --text: #fff;
+      --text-dim: rgba(255,255,255,0.5);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Noto Sans SC', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding: 30px 20px;
+    }
+    .container { max-width: 700px; margin: 0 auto; }
+    h1 {
+      font-size: 24px; font-weight: 800;
+      background: linear-gradient(90deg, var(--primary), var(--primary-light), var(--gold));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      margin-bottom: 24px; text-align: center;
+    }
+    .login-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 30px;
+      text-align: center;
+    }
+    .login-box input {
+      padding: 12px 18px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      font-size: 15px;
+      width: 250px;
+      outline: none;
+      margin-right: 10px;
+    }
+    .login-box input:focus { border-color: var(--primary); }
+    .btn {
+      padding: 12px 24px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: #fff; font-size: 14px; font-weight: 700;
+      border: none; border-radius: 10px;
+      cursor: pointer; transition: all 0.3s;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(238,90,36,0.4); }
+    .btn-green { background: var(--green); }
+    .btn-red { background: var(--red); }
+    .order-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 22px;
+      margin-bottom: 16px;
+      transition: all 0.3s;
+    }
+    .order-card:hover { border-color: rgba(238,90,36,0.2); }
+    .order-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 12px;
+    }
+    .order-id { font-weight: 700; font-size: 15px; color: var(--primary-light); }
+    .order-status {
+      font-size: 12px; padding: 4px 12px;
+      border-radius: 20px; font-weight: 600;
+    }
+    .status-pending { background: rgba(241,196,15,0.15); color: #f1c40f; }
+    .status-user_confirmed { background: rgba(52,152,219,0.15); color: #3498db; }
+    .status-verified { background: rgba(39,174,96,0.15); color: var(--green); }
+    .status-rejected { background: rgba(231,76,60,0.15); color: var(--red); }
+    .order-items {
+      font-size: 13px; color: var(--text-dim);
+      line-height: 1.8; margin-bottom: 12px;
+    }
+    .order-total {
+      font-size: 22px; font-weight: 900;
+      background: linear-gradient(90deg, var(--primary), var(--primary-light), var(--gold));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
+    }
+    .order-time { font-size: 12px; color: var(--text-dim); margin-bottom: 14px; }
+    .order-actions { display: flex; gap: 10px; }
+    .tab-bar {
+      display: flex; gap: 10px; margin-bottom: 24px; justify-content: center; flex-wrap: wrap;
+    }
+    .tab-btn {
+      padding: 8px 20px; border-radius: 20px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      color: var(--text-dim); font-size: 13px;
+      cursor: pointer; transition: all 0.3s;
+    }
+    .tab-btn.active {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      border-color: transparent; color: #fff; font-weight: 700;
+    }
+    .empty { text-align: center; color: var(--text-dim); padding: 40px; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🧠 不是裸考 — 订单管理</h1>
+
+    <!-- 登录 -->
+    <div id="loginBox" class="login-box">
+      <p style="margin-bottom:16px;color:var(--text-dim)">输入管理员密码</p>
+      <input type="password" id="adminPwd" placeholder="管理员密码" />
+      <button class="btn" onclick="doLogin()">登录</button>
+    </div>
+
+    <!-- 后台 -->
+    <div id="dashboard" class="hidden">
+      <div class="tab-bar">
+        <button class="tab-btn active" data-filter="all">全部</button>
+        <button class="tab-btn" data-filter="user_confirmed">待核验</button>
+        <button class="tab-btn" data-filter="verified">已通过</button>
+        <button class="tab-btn" data-filter="rejected">已拒绝</button>
+      </div>
+      <div id="orderList"></div>
+      <div id="emptyMsg" class="empty hidden">暂无订单</div>
+    </div>
+  </div>
+
+<script>
+var adminSecret = '';
+var allOrders = [];
+var currentFilter = 'all';
+
+function doLogin() {
+  adminSecret = document.getElementById('adminPwd').value.trim();
+  if (!adminSecret) return alert('请输入密码');
+  loadOrders();
+}
+
+function loadOrders() {
+  fetch('/api/order?admin=' + encodeURIComponent(adminSecret))
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      if (data.error) { alert(data.error); return; }
+      document.getElementById('loginBox').classList.add('hidden');
+      document.getElementById('dashboard').classList.remove('hidden');
+      allOrders = data.orders || [];
+      renderOrders();
+    })
+    .catch(function() { alert('请求失败'); });
+}
+
+function renderOrders() {
+  var filtered = currentFilter === 'all'
+    ? allOrders
+    : allOrders.filter(function(o) { return o.status === currentFilter; });
+
+  var list = document.getElementById('orderList');
+  var empty = document.getElementById('emptyMsg');
+
+  if (!filtered.length) {
+    list.innerHTML = '';
+    empty.classList.remove('hidden');
+    return;
+  }
+  empty.classList.add('hidden');
+
+  var statusLabels = {
+    pending: '待付款', user_confirmed: '待核验', verified: '已通过', rejected: '已拒绝'
+  };
+
+  list.innerHTML = filtered.map(function(o) {
+    var items = typeof o.items === 'string' ? JSON.parse(o.items) : o.items;
+    var itemsText = items.map(function(i) { return i.emoji + ' ' + i.name + ' ×' + i.qty; }).join('、');
+
+    var actions = '';
+    if (o.status === 'user_confirmed') {
+      actions = '<div class="order-actions">'
+        + '<button class="btn btn-green" onclick="verifyOrder(\'' + o.id + '\',\'verify\')">✅ 通过</button>'
+        + '<button class="btn btn-red" onclick="verifyOrder(\'' + o.id + '\',\'reject\')">❌ 拒绝</button>'
+        + '</div>';
+    }
+
+    return '<div class="order-card">'
+      + '<div class="order-header">'
+      + '<span class="order-id">📦 ' + o.id + '</span>'
+      + '<span class="order-status status-' + o.status + '">' + (statusLabels[o.status] || o.status) + '</span>'
+      + '</div>'
+      + '<div class="order-items">' + itemsText + '</div>'
+      + '<div class="order-total">¥' + parseFloat(o.total).toFixed(2) + '</div>'
+      + '<div class="order-time">创建: ' + new Date(o.createdAt).toLocaleString('zh-CN')
+      + (o.userConfirmedAt ? '<br>用户确认: ' + new Date(o.userConfirmedAt).toLocaleString('zh-CN') : '')
+      + (o.verifiedAt ? '<br>核验: ' + new Date(o.verifiedAt).toLocaleString('zh-CN') : '')
+      + '</div>'
+      + actions
+      + '</div>';
+  }).join('');
+}
+
+function verifyOrder(orderId, action) {
+  fetch('/api/admin/verify', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ admin: adminSecret, orderId: orderId, action: action })
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    if (data.error) { alert(data.error); return; }
+    loadOrders();
+  });
+}
+
+// Tab filtering
+document.querySelectorAll('.tab-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    currentFilter = btn.dataset.filter;
+    renderOrders();
+  });
+});
+
+// Auto-login if password in URL hash
+if (location.hash) {
+  document.getElementById('adminPwd').value = decodeURIComponent(location.hash.substring(1));
+  doLogin();
+}
+</script>
+</body>
+</html>
