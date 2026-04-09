@@ -2,8 +2,6 @@
 const PRODUCTS = {
   cet: [
     { id: 'einstein-en', emoji: '🧠', img: 'assets/images/avatars/einstein-en.jpg', name: '爱因斯坦的脑子・英语加强版', desc: '通用智商 +1000，四六级阅读秒懂，听力全对，写作直接出满分范文', price: 0.5, tags: ['全网爆款', '自带流量'], iq: 1000, hot: true },
-    { id: 'chenlin', emoji: '🎓', img: 'assets/images/avatars/chenlin.svg', name: '陈琳的英语脑', desc: '外语教育家陈琳专属 buff，口语发音 native，翻译不踩坑', price: 0.6, tags: ['国内名人', '认知度高'], iq: 800 },
-    { id: 'liyang', emoji: '📢', img: 'assets/images/avatars/liyang.jpg', name: '李阳疯狂英语脑', desc: '疯狂背单词 buff，词汇量瞬间拉满，作文金句信手拈来', price: 0.3, tags: ['怀旧梗', '传播力强'], iq: 600 },
     { id: 'yuminhong', emoji: '📚', img: 'assets/images/avatars/yuminhong.jpg', name: '俞敏洪的词汇脑', desc: '新东方创始人专属，单词过目不忘，阅读长难句秒解', price: 0.8, tags: ['考研四六级', '认知度拉满'], iq: 900 },
     { id: 'shakespeare', emoji: '✒️', img: 'assets/images/avatars/shakespeare.jpg', name: '莎士比亚的文豪脑', desc: '写作 buff 拉满，高级词汇直接用，阅卷老师直接给满分', price: 1.0, tags: ['文化梗', '逼格拉满'], iq: 1200 }
   ],
