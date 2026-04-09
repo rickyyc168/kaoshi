@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1a0533"/><stop offset="100%" stop-color="#0a2040"/></linearGradient></defs>
+  <rect width="200" height="200" rx="24" fill="url(#bg)"/>
+  <circle cx="100" cy="100" r="75" fill="none" stroke="#ee5a24" stroke-width="0.5" opacity="0.2"/>
+  <!-- Face -->
+  <circle cx="100" cy="88" r="36" fill="#f5d0a9"/>
+  <!-- Wild hair -->
+  <path d="M64 78 Q56 50 70 46 Q78 38 88 46 Q94 36 100 40 Q106 36 112 46 Q122 38 130 46 Q144 50 136 78" fill="#e8e8e8" stroke="#ccc" stroke-width="0.5"/>
+  <path d="M64 78 Q58 70 62 62 Q54 76 60 86" fill="#e8e8e8"/>
+  <path d="M136 78 Q142 70 138 62 Q146 76 140 86" fill="#e8e8e8"/>
+  <!-- Eyes -->
+  <ellipse cx="86" cy="86" rx="4" ry="5" fill="#2c3e50"/>
+  <ellipse cx="114" cy="86" rx="4" ry="5" fill="#2c3e50"/>
+  <circle cx="87" cy="84" r="1.5" fill="#fff"/>
+  <circle cx="115" cy="84" r="1.5" fill="#fff"/>
+  <!-- Mustache -->
+  <path d="M86 104 Q93 110 100 106 Q107 110 114 104 Q108 114 100 110 Q92 114 86 104" fill="#d4d4d4"/>
+  <!-- Smile -->
+  <path d="M92 114 Q100 120 108 114" fill="none" stroke="#c0392b" stroke-width="2" stroke-linecap="round"/>
+  <!-- Lab coat -->
+  <path d="M66 126 L100 150 L134 126" fill="#f5f5f0"/>
+  <path d="M88 126 L100 140 L112 126" fill="#e8e8e8"/>
+  <!-- E=mc² -->
+  <text x="130" y="70" fill="#ffd700" font-size="13" font-weight="bold" opacity="0.8" font-family="serif">E=mc²</text>
+  <!-- Atom -->
+  <ellipse cx="50" cy="65" rx="18" ry="8" fill="none" stroke="#ee5a24" stroke-width="1" opacity="0.5" transform="rotate(-30 50 65)"/>
+  <ellipse cx="50" cy="65" rx="18" ry="8" fill="none" stroke="#f0932b" stroke-width="1" opacity="0.5" transform="rotate(30 50 65)"/>
+  <ellipse cx="50" cy="65" rx="18" ry="8" fill="none" stroke="#ffd700" stroke-width="1" opacity="0.5"/>
+  <circle cx="50" cy="65" r="3" fill="#ee5a24" opacity="0.7"/>
+  <text x="100" y="175" text-anchor="middle" fill="#ee5a24" font-size="12" font-weight="bold" font-family="sans-serif">🔬 +10 IQ</text>
+</svg>
