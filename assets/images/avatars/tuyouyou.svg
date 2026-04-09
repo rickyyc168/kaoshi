@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#1a0533"/><stop offset="100%" stop-color="#0a1628"/></linearGradient></defs>
+  <rect width="200" height="200" rx="24" fill="url(#bg)"/>
+  <circle cx="100" cy="88" r="36" fill="#f0c89a"/>
+  <!-- Short hair -->
+  <path d="M66 82 Q66 52 100 50 Q134 52 134 82 L130 78 Q130 58 100 56 Q70 58 70 78 Z" fill="#2c2c2c"/>
+  <!-- Glasses -->
+  <rect x="74" y="80" width="20" height="16" rx="3" fill="none" stroke="#888" stroke-width="2"/>
+  <rect x="106" y="80" width="20" height="16" rx="3" fill="none" stroke="#888" stroke-width="2"/>
+  <line x1="94" y1="88" x2="106" y2="88" stroke="#888" stroke-width="1.5"/>
+  <!-- Eyes -->
+  <circle cx="84" cy="88" r="2.5" fill="#2c3e50"/>
+  <circle cx="116" cy="88" r="2.5" fill="#2c3e50"/>
+  <!-- Gentle smile -->
+  <path d="M90 106 Q100 113 110 106" fill="none" stroke="#c0392b" stroke-width="2" stroke-linecap="round"/>
+  <!-- Lab coat -->
+  <path d="M68 126 L100 148 L132 126" fill="#f5f5f0"/>
+  <circle cx="100" cy="134" r="3" fill="#3498db"/>
+  <!-- Test tube -->
+  <rect x="140" y="65" width="8" height="30" rx="2" fill="#3498db" opacity="0.6"/>
+  <rect x="142" y="60" width="4" height="8" rx="1" fill="#3498db" opacity="0.8"/>
+  <circle cx="144" cy="88" r="4" fill="#27ae60" opacity="0.6"/>
+  <!-- Nobel medal -->
+  <circle cx="55" cy="120" r="10" fill="#ffd700" stroke="#c8a050" stroke-width="1"/>
+  <text x="55" y="124" text-anchor="middle" fill="#8B6914" font-size="8" font-weight="bold">N</text>
+  <text x="100" y="175" text-anchor="middle" fill="#ee5a24" font-size="12" font-weight="bold" font-family="sans-serif">💊 +1800 IQ</text>
+</svg>
