@@ -466,6 +466,25 @@ html { scroll-behavior: smooth; }
   transform: scale(1.12) rotate(-3deg);
   filter: drop-shadow(0 6px 20px rgba(238,90,36,0.5));
 }
+/* SVG Avatar in card */
+.buff-avatar {
+  text-align: center;
+  margin-bottom: 14px;
+  transition: transform 0.35s ease;
+}
+.buff-avatar img {
+  width: 140px; height: 140px;
+  border-radius: 16px;
+  border: 2px solid rgba(238,90,36,0.15);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  transition: all 0.35s ease;
+  object-fit: cover;
+}
+.buff-card-inner:hover .buff-avatar img {
+  transform: scale(1.06);
+  border-color: rgba(238,90,36,0.4);
+  box-shadow: 0 8px 30px rgba(238,90,36,0.2);
+}
 .buff-name {
   font-size: 16px; font-weight: 700;
   color: var(--text-primary);
@@ -1254,6 +1273,7 @@ footer p {
   .iq-display { padding: 30px 20px; }
   .lucky-box { width: 100px; height: 100px; font-size: 48px; }
   .back-to-top { bottom: 20px; right: 20px; width: 40px; height: 40px; font-size: 18px; }
+  .buff-avatar img { width: 120px; height: 120px; }
   .cart-sidebar { width: 100%; max-width: 100vw; }
   .modal-box { width: 95%; }
   .cert-title { font-size: 24px; }
@@ -1266,6 +1286,7 @@ footer p {
   .hero-stat-num { font-size: 24px; }
   .buff-card-inner { padding: 20px 16px; }
   .buff-emoji { font-size: 42px; }
+  .buff-avatar img { width: 110px; height: 110px; }
   .buff-price { font-size: 20px; }
   .buff-name { font-size: 14px; }
   .review-card-inner { padding: 20px; }
