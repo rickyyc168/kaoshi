@@ -1,25 +1,25 @@
 // ===== PRODUCT DATA =====
 const PRODUCTS = {
   cet: [
-    { id: 'einstein-en', emoji: '🧠', img: 'assets/images/avatars/einstein-en.svg', name: '爱因斯坦的脑子・英语加强版', desc: '通用智商 +1000，四六级阅读秒懂，听力全对，写作直接出满分范文', price: 0.5, tags: ['全网爆款', '自带流量'], iq: 1000, hot: true },
+    { id: 'einstein-en', emoji: '🧠', img: 'assets/images/avatars/einstein-en.jpg', name: '爱因斯坦的脑子・英语加强版', desc: '通用智商 +1000，四六级阅读秒懂，听力全对，写作直接出满分范文', price: 0.5, tags: ['全网爆款', '自带流量'], iq: 1000, hot: true },
     { id: 'chenlin', emoji: '🎓', img: 'assets/images/avatars/chenlin.svg', name: '陈琳的英语脑', desc: '外语教育家陈琳专属 buff，口语发音 native，翻译不踩坑', price: 0.6, tags: ['国内名人', '认知度高'], iq: 800 },
-    { id: 'liyang', emoji: '📢', img: 'assets/images/avatars/liyang.svg', name: '李阳疯狂英语脑', desc: '疯狂背单词 buff，词汇量瞬间拉满，作文金句信手拈来', price: 0.3, tags: ['怀旧梗', '传播力强'], iq: 600 },
-    { id: 'yuminhong', emoji: '📚', img: 'assets/images/avatars/yuminhong.svg', name: '俞敏洪的词汇脑', desc: '新东方创始人专属，单词过目不忘，阅读长难句秒解', price: 0.8, tags: ['考研四六级', '认知度拉满'], iq: 900 },
-    { id: 'shakespeare', emoji: '✒️', img: 'assets/images/avatars/shakespeare.svg', name: '莎士比亚的文豪脑', desc: '写作 buff 拉满，高级词汇直接用，阅卷老师直接给满分', price: 1.0, tags: ['文化梗', '逼格拉满'], iq: 1200 }
+    { id: 'liyang', emoji: '📢', img: 'assets/images/avatars/liyang.jpg', name: '李阳疯狂英语脑', desc: '疯狂背单词 buff，词汇量瞬间拉满，作文金句信手拈来', price: 0.3, tags: ['怀旧梗', '传播力强'], iq: 600 },
+    { id: 'yuminhong', emoji: '📚', img: 'assets/images/avatars/yuminhong.jpg', name: '俞敏洪的词汇脑', desc: '新东方创始人专属，单词过目不忘，阅读长难句秒解', price: 0.8, tags: ['考研四六级', '认知度拉满'], iq: 900 },
+    { id: 'shakespeare', emoji: '✒️', img: 'assets/images/avatars/shakespeare.jpg', name: '莎士比亚的文豪脑', desc: '写作 buff 拉满，高级词汇直接用，阅卷老师直接给满分', price: 1.0, tags: ['文化梗', '逼格拉满'], iq: 1200 }
   ],
   finals: [
-    { id: 'gauss', emoji: '📐', img: 'assets/images/avatars/gauss.svg', name: '高斯的脑子・数学王子版', desc: '通用智商 +1000，高数/线代/概率论秒解，计算题全对', price: 0.06, tags: ['数学之神', '理工刚需'], iq: 1000, hot: true },
-    { id: 'huaronggeng', emoji: '🧮', img: 'assets/images/avatars/huaronggeng.svg', name: '华罗庚的脑子', desc: '通用智商 +100，数理化全科目 buff，期末不挂科', price: 0.02, tags: ['国产大师', '性价比款'], iq: 100 },
-    { id: 'zuchongzhi', emoji: '📏', img: 'assets/images/avatars/zuchongzhi.svg', name: '祖冲之的脑子', desc: '计算精度拉满，计算题零失误，理科考试稳过', price: 0.02, tags: ['历史名人', '玩梗属性'], iq: 500 },
-    { id: 'qianzhongshu', emoji: '📖', img: 'assets/images/avatars/qianzhongshu.svg', name: '钱钟书的过目不忘脑', desc: '记忆力 +1000，文科知识点全记住，背题秒会', price: 0.99, tags: ['文科专属', '记忆拉满'], iq: 1000 },
-    { id: 'weidongyi', emoji: '🏆', img: 'assets/images/avatars/weidongyi.svg', name: '韦东奕的数学脑', desc: '北大韦神专属，高数难题直接秒，期末满绩不是梦', price: 1.99, tags: ['当代网红', '自带流量'], iq: 1500, hot: true }
+    { id: 'gauss', emoji: '📐', img: 'assets/images/avatars/gauss.jpg', name: '高斯的脑子・数学王子版', desc: '通用智商 +1000，高数/线代/概率论秒解，计算题全对', price: 0.06, tags: ['数学之神', '理工刚需'], iq: 1000, hot: true },
+    { id: 'huaronggeng', emoji: '🧮', img: 'assets/images/avatars/huaronggeng.jpg', name: '华罗庚的脑子', desc: '通用智商 +100，数理化全科目 buff，期末不挂科', price: 0.02, tags: ['国产大师', '性价比款'], iq: 100 },
+    { id: 'zuchongzhi', emoji: '📏', img: 'assets/images/avatars/zuchongzhi.jpg', name: '祖冲之的脑子', desc: '计算精度拉满，计算题零失误，理科考试稳过', price: 0.02, tags: ['历史名人', '玩梗属性'], iq: 500 },
+    { id: 'qianzhongshu', emoji: '📖', img: 'assets/images/avatars/qianzhongshu.png', name: '钱钟书的过目不忘脑', desc: '记忆力 +1000，文科知识点全记住，背题秒会', price: 0.99, tags: ['文科专属', '记忆拉满'], iq: 1000 },
+    { id: 'weidongyi', emoji: '🏆', img: 'assets/images/avatars/weidongyi.jpg', name: '韦东奕的数学脑', desc: '北大韦神专属，高数难题直接秒，期末满绩不是梦', price: 1.99, tags: ['当代网红', '自带流量'], iq: 1500, hot: true }
   ],
   thesis: [
-    { id: 'einstein-res', emoji: '🔬', img: 'assets/images/avatars/einstein-res.svg', name: '爱因斯坦的脑子・科研版', desc: '科研思维拉满，论文创新点直接有，答辩对答如流', price: 0.01, tags: ['万能款', '全学科适用', '可批量100份'], iq: 10, batchMax: 100 },
-    { id: 'tuyouyou', emoji: '💊', img: 'assets/images/avatars/tuyouyou.svg', name: '屠呦呦的科研脑', desc: '实验数据零误差，论文查重率为 0，导师疯狂点赞', price: 1.99, tags: ['诺奖得主', '学术权威'], iq: 1800 },
-    { id: 'yuanlongping', emoji: '🌾', img: 'assets/images/avatars/yuanlongping.svg', name: '袁隆平的实干脑', desc: '论文逻辑严谨，答辩不卡壳，评委全票通过', price: 1.99, tags: ['国民科学家', '情怀在线'], iq: 1600 },
-    { id: 'qianxuesen', emoji: '🚀', img: 'assets/images/avatars/qianxuesen.svg', name: '钱学森的学术脑', desc: '跨学科科研 buff，论文深度拉满，答辩直接封神', price: 2.99, tags: ['高端款', '硕博专属'], iq: 2500, hot: true },
-    { id: 'luxun', emoji: '🖊️', img: 'assets/images/avatars/luxun.svg', name: '鲁迅的文豪脑', desc: '论文写作逻辑拉满，摘要/结论直接封神，审稿人秒过', price: 0.99, tags: ['文科社科', '写作Buff'], iq: 900 }
+    { id: 'einstein-res', emoji: '🔬', img: 'assets/images/avatars/einstein-res.jpg', name: '爱因斯坦的脑子・科研版', desc: '科研思维拉满，论文创新点直接有，答辩对答如流', price: 0.01, tags: ['万能款', '全学科适用', '可批量100份'], iq: 10, batchMax: 100 },
+    { id: 'tuyouyou', emoji: '💊', img: 'assets/images/avatars/tuyouyou.jpg', name: '屠呦呦的科研脑', desc: '实验数据零误差，论文查重率为 0，导师疯狂点赞', price: 1.99, tags: ['诺奖得主', '学术权威'], iq: 1800 },
+    { id: 'yuanlongping', emoji: '🌾', img: 'assets/images/avatars/yuanlongping.jpg', name: '袁隆平的实干脑', desc: '论文逻辑严谨，答辩不卡壳，评委全票通过', price: 1.99, tags: ['国民科学家', '情怀在线'], iq: 1600 },
+    { id: 'qianxuesen', emoji: '🚀', img: 'assets/images/avatars/qianxuesen.jpg', name: '钱学森的学术脑', desc: '跨学科科研 buff，论文深度拉满，答辩直接封神', price: 2.99, tags: ['高端款', '硕博专属'], iq: 2500, hot: true },
+    { id: 'luxun', emoji: '🖊️', img: 'assets/images/avatars/luxun.jpg', name: '鲁迅的文豪脑', desc: '论文写作逻辑拉满，摘要/结论直接封神，审稿人秒过', price: 0.99, tags: ['文科社科', '写作Buff'], iq: 900 }
   ]
 };
 
