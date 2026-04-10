@@ -150,7 +150,9 @@ function doLogin() {
 }
 
 function loadOrders() {
-  fetch('/api/order?admin=' + encodeURIComponent(adminSecret))
+  fetch('/api/order', {
+    headers: { 'X-Admin-Secret': adminSecret }
+  })
     .then(function(r) { return r.json(); })
     .then(function(data) {
       if (data.error) { alert(data.error); return; }
@@ -212,8 +214,11 @@ function renderOrders() {
 function verifyOrder(orderId, action) {
   fetch('/api/admin/verify', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ admin: adminSecret, orderId: orderId, action: action })
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Admin-Secret': adminSecret
+    },
+    body: JSON.stringify({ orderId: orderId, action: action })
   })
   .then(function(r) { return r.json(); })
   .then(function(data) {

@@ -388,6 +388,12 @@ function showPaymentQR(total, orderId) {
 
 function confirmPayment(btn, orderId) {
   if (!btn) return;
+
+  // 防误点：二次确认
+  if (!confirm('请确认你已经通过微信完成了付款？\n\n点击"确定"提交给管理员核验。\n如果还没付，请先去微信扫码付款。')) {
+    return;
+  }
+
   btn.disabled = true;
   btn.textContent = '⏳ 提交中...';
 
@@ -405,40 +411,115 @@ function confirmPayment(btn, orderId) {
       return;
     }
 
-    // 显示确认成功
+    // 显示"已提交等待核验"——不是成功！
     $('#checkoutPayment').html(
       '<div style="text-align:center;padding:30px 0">'
-      + '<div style="font-size:60px;margin-bottom:16px">🎉</div>'
-      + '<h3 style="color:var(--text-primary);margin-bottom:8px">已收到付款确认</h3>'
-      + '<p style="color:var(--text-dim);font-size:14px">订单号: ' + orderId + '</p>'
-      + '<p style="color:var(--text-dim);font-size:13px;margin-top:12px">管理员将在 1-5 分钟内核验，核验通过后 Buff 即刻生效！</p>'
+      + '<div style="font-size:60px;margin-bottom:16px">⏳</div>'
+      + '<h3 style="color:var(--text-primary);margin-bottom:8px">已提交，等待管理员核验</h3>'
+      + '<p style="color:var(--text-dim);font-size:14px">订单号: <strong style="color:var(--accent-gold)">' + orderId + '</strong></p>'
+      + '<p style="color:var(--text-dim);font-size:13px;margin-top:12px;line-height:1.7">'
+      + '管理员将在 1-5 分钟内核验付款信息。<br>'
+      + '核验通过后 Buff 即刻生效，请稍候！</p>'
+      + '<p style="color:var(--text-dim);font-size:12px;margin-top:16px;padding:12px;background:rgba(255,255,255,0.03);border-radius:10px">'
+      + '💡 如果金额或备注有误，管理员会联系你处理</p>'
       + '</div>'
     );
 
-    // 清空购物车
-    cart = [];
-    updateCartUI();
+    // ❌ 不清空购物车——核验通过后才清
+    // ❌ 不放纸屑——还没真正成功
+    // ❌ 不放🎉——这不是成功
 
-    // 纸屑庆祝
-    setTimeout(function () {
-      for (var i = 0; i < 3; i++) {
-        (function (idx) {
-          setTimeout(function () {
-            burstConfetti(
-              Math.random() * window.innerWidth,
-              Math.random() * window.innerHeight * 0.5,
-              15
-            );
-          }, idx * 300);
-        })(i);
-      }
-    }, 200);
+    // 开始轮询订单状态
+    startOrderPolling(orderId);
   })
   .catch(function () {
     btn.disabled = false;
     btn.textContent = '💰 ✅ 我已付款';
     showToast('❌ 网络错误，请检查后重试');
   });
+}
+
+// ===== ORDER STATUS POLLING =====
+var orderPollTimer = null;
+
+function startOrderPolling(orderId) {
+  // 清除之前的轮询
+  if (orderPollTimer) clearInterval(orderPollTimer);
+
+  var pollCount = 0;
+  var maxPolls = 60; // 最多轮询 60 次（5分钟）
+
+  orderPollTimer = setInterval(function () {
+    pollCount++;
+    if (pollCount > maxPolls) {
+      clearInterval(orderPollTimer);
+      return;
+    }
+
+    fetch('/api/order?orderId=' + encodeURIComponent(orderId))
+      .then(function (r) { return r.json(); })
+      .then(function (data) {
+        if (!data.order) return;
+
+        if (data.order.status === 'verified') {
+          clearInterval(orderPollTimer);
+          onOrderVerified(orderId);
+        } else if (data.order.status === 'rejected') {
+          clearInterval(orderPollTimer);
+          onOrderRejected(orderId);
+        }
+        // pending / user_confirmed → 继续轮询
+      })
+      .catch(function () {}); // 静默失败，下次再试
+  }, 5000); // 每 5 秒查一次
+}
+
+function onOrderVerified(orderId) {
+  // 真正的成功！
+  $('#checkoutPayment').html(
+    '<div style="text-align:center;padding:30px 0">'
+    + '<div style="font-size:60px;margin-bottom:16px">🎉</div>'
+    + '<h3 style="color:var(--text-primary);margin-bottom:8px">✅ Buff 已生效！</h3>'
+    + '<p style="color:var(--text-dim);font-size:14px">订单号: <strong style="color:var(--accent-gold)">' + orderId + '</strong></p>'
+    + '<p style="color:var(--text-dim);font-size:13px;margin-top:12px">管理员已核验通过，学霸脑子加持成功！祝你逢考必过 🧠</p>'
+    + '<button class="main-button" onclick="showCertificate()" style="margin-top:20px">📜 查看加持证书</button>'
+    + '</div>'
+  );
+
+  // 现在才清空购物车
+  cart = [];
+  updateCartUI();
+
+  // 现在才放纸屑 🎊
+  setTimeout(function () {
+    for (var i = 0; i < 3; i++) {
+      (function (idx) {
+        setTimeout(function () {
+          burstConfetti(
+            Math.random() * window.innerWidth,
+            Math.random() * window.innerHeight * 0.5,
+            20
+          );
+        }, idx * 300);
+      })(i);
+    }
+  }, 200);
+
+  showToast('🎉 Buff 已生效！学霸脑子加持成功！');
+}
+
+function onOrderRejected(orderId) {
+  $('#checkoutPayment').html(
+    '<div style="text-align:center;padding:30px 0">'
+    + '<div style="font-size:60px;margin-bottom:16px">❌</div>'
+    + '<h3 style="color:var(--text-primary);margin-bottom:8px">付款未通过核验</h3>'
+    + '<p style="color:var(--text-dim);font-size:14px">订单号: <strong style="color:#e74c3c">' + orderId + '</strong></p>'
+    + '<p style="color:var(--text-dim);font-size:13px;margin-top:12px;line-height:1.7">'
+    + '可能原因：金额不匹配、未备注订单号、或未收到付款。<br>'
+    + '请重新下单或联系管理员处理。</p>'
+    + '<button class="main-button" onclick="closeModal()" style="margin-top:20px">知道了</button>'
+    + '</div>'
+  );
 }
 
 // ===== COPY ORDER ID =====
@@ -644,7 +725,10 @@ function shareToClipboard() {
 
 // ===== MODAL =====
 function openModal() { $('#modalOverlay').addClass('active'); }
-function closeModal() { $('#modalOverlay').removeClass('active'); }
+function closeModal() {
+  $('#modalOverlay').removeClass('active');
+  if (orderPollTimer) { clearInterval(orderPollTimer); orderPollTimer = null; }
+}
 $('#modalClose').on('click', closeModal);
 $('#modalOverlay').on('click', function (e) {
   if (e.target === this) closeModal();
