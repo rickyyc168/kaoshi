@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "vercel-build": "echo 'static build done'"
+    "vercel-build": "true"
   },
   "dependencies": {
     "@vercel/kv": "^1.0.0"
