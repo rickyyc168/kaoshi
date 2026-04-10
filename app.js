@@ -47,6 +47,7 @@ const LUCKY_PRIZES = [
 // ===== STATE =====
 let cart = [];
 let totalIq = 0;
+let lastOrderIq = 0; // 最近一笔订单的总加持智商（清空购物车前保存）
 let discount = 1.0;
 let discountCode = null; // 服务端折扣码（抽奖获得）
 let luckyDrawCount = 3;
@@ -439,6 +440,9 @@ function showOrderSuccess(orderId) {
     + '</div>'
   );
 
+  // 保存订单总智商（清空购物车前）
+  lastOrderIq = totalIq;
+
   // 清空购物车
   cart = [];
   updateCartUI();
@@ -578,7 +582,7 @@ function drawCertificate() {
   // Info
   ctx.font = '500 16px sans-serif';
   ctx.fillStyle = 'rgba(255,255,255,0.75)';
-  ctx.fillText('加持智商: +' + totalIq.toLocaleString(), w / 2, 230);
+  ctx.fillText('加持智商: +' + lastOrderIq.toLocaleString(), w / 2, 230);
 
   // Products purchased summary
   var productNames = cart.length > 0 ? cart.map(function (c) { return c.emoji; }).join(' ') : '🧠';
@@ -638,7 +642,7 @@ function shareCertImage() {
 function shareToClipboard() {
   var items = cart.length > 0 ? cart.map(function (c) { return c.emoji + c.name; }).join('、') : '全套学霸脑子';
   var text = '🧠 我在「不是裸考」购买了' + items + '\n'
-    + '✨ 总加持智商: +' + totalIq.toLocaleString() + '\n'
+    + '✨ 总加持智商: +' + lastOrderIq.toLocaleString() + '\n'
     + '🎯 心诚则灵，逢考必过！\n'
     + '👉 不是裸考 — 学霸脑子玄学Buff商店';
 
