@@ -430,8 +430,11 @@ function showOrderSuccess(orderId) {
     + '<p style="color:var(--text-dim);font-size:14px">订单号: <strong style="color:var(--accent-gold)">' + orderId + '</strong></p>'
     + '<p style="color:var(--text-dim);font-size:13px;margin-top:12px;line-height:1.7">'
     + '学霸脑子加持成功！心诚则灵，逢考必过 🧠</p>'
-    + '<p style="color:var(--text-dim);font-size:12px;margin-top:16px;padding:12px 16px;background:rgba(39,174,96,0.08);border:1px solid rgba(39,174,96,0.15);border-radius:10px;line-height:1.7">'
-    + '💝 本项目部分收益将用于慈善公益事业<br>每月更新公益捐赠记录，感谢你的爱心 ❤️</p>'
+    + '<div style="margin-top:20px;padding:20px 24px;background:rgba(39,174,96,0.1);border:2px solid rgba(39,174,96,0.25);border-radius:16px">'
+    + '<div style="font-size:36px;margin-bottom:10px">💝</div>'
+    + '<p style="color:#27ae60;font-size:16px;font-weight:700;margin-bottom:6px">本项目部分收益将用于慈善公益事业</p>'
+    + '<p style="color:rgba(255,255,255,0.6);font-size:14px">每月更新公益捐赠记录，感谢你的爱心 ❤️</p>'
+    + '</div>'
     + '<button class="main-button" onclick="showCertificate()" style="margin-top:20px">📜 查看加持证书</button>'
     + '</div>'
   );
