@@ -528,10 +528,13 @@
 
 /* ===== 4. 产品卡片 ===== */
 @media (max-width: 768px) {
-  /* 卡片两列排列 */
+  /* 卡片双列排列 */
   .buff-card {
     margin-bottom: 16px;
     padding: 0 6px;
+    /* Bootstrap 栅格在手机端就是 50% 宽度，自动双列 */
+    width: 50% !important;
+    float: left !important;
   }
 
   .buff-card-inner {
@@ -555,9 +558,9 @@
     font-size: 12px;
     line-height: 1.7;
     margin-bottom: 10px;
-    /* 限制3行 */
+    /* 限制2行，双列更紧凑 */
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
@@ -595,6 +598,35 @@
   .buff-emoji {
     font-size: 44px;
     margin-bottom: 10px;
+  }
+}
+
+/* 更小屏幕微调 */
+@media (max-width: 375px) {
+  .buff-card {
+    padding: 0 4px;
+  }
+
+  .buff-card-inner {
+    padding: 16px 10px;
+  }
+
+  .buff-avatar img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .buff-name {
+    font-size: 13px;
+  }
+
+  .buff-desc {
+    font-size: 11px;
+    -webkit-line-clamp: 2;
+  }
+
+  .buff-price {
+    font-size: 18px;
   }
 }
 
@@ -655,13 +687,23 @@
     padding: 20px 0;
   }
 
-  /* 期末考试区域 - 让左右排列变上下 */
+  /* 期末考试区域 - 左边图片上下排列，产品保持双列 */
   .about-us .row {
     flex-direction: column;
   }
 
   .about-us .col-lg-4 {
     margin-bottom: 20px;
+  }
+
+  /* 期末考试专区里的产品卡片也双列 */
+  .about-us .services .row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .about-us .buff-card {
+    width: 50% !important;
   }
 }
 
@@ -732,6 +774,9 @@
   .review-card {
     margin-bottom: 16px;
     padding: 0 6px;
+    /* 双列排列 */
+    width: 50% !important;
+    float: left !important;
   }
 
   .review-card-inner {
