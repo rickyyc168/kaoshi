@@ -696,14 +696,20 @@
     margin-bottom: 20px;
   }
 
-  /* 期末考试专区里的产品卡片也双列 */
-  .about-us .services .row {
+  /* 所有专区内的产品卡片都双列 */
+  .col-lg-6 .row#cetProducts,
+  .col-lg-6 .row#thesisProducts,
+  .col-lg-8 .services .row#finalsProducts {
     display: flex;
     flex-wrap: wrap;
+    margin-left: -6px;
+    margin-right: -6px;
   }
 
-  .about-us .buff-card {
+  .col-lg-6 .buff-card,
+  .col-lg-8 .buff-card {
     width: 50% !important;
+    float: left !important;
   }
 }
 
