@@ -215,6 +215,63 @@
   }
 }
 
+/* ===== 1c. 覆盖模板 CSS @767px 的强制浅色主题 ===== */
+@media (max-width: 767px) {
+  .header-area,
+  .background-header {
+    background-color: rgba(11, 14, 26, 0.95) !important;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3) !important;
+    backdrop-filter: blur(20px) saturate(1.5) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(1.5) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04) !important;
+  }
+  .header-area .container {
+    padding: 0 !important;
+  }
+  .header-area .main-nav {
+    overflow: visible !important;
+  }
+  /* logo 颜色 */
+  .header-area .main-nav .logo h4,
+  .background-header .main-nav .logo h4,
+  .header-area .main-nav .logo {
+    color: transparent !important;
+  }
+  /* 导航第一个 li 不要顶部边框 */
+  .header-area .main-nav .nav li:first-child {
+    border-top: none !important;
+  }
+  /* 导航容器 */
+  .header-area .main-nav .nav,
+  .background-header .main-nav .nav {
+    float: none !important;
+    margin-left: 0 !important;
+    transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                visibility 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+  /* 导航项 */
+  .header-area .main-nav .nav li,
+  .background-header .main-nav .nav li {
+    background: transparent !important;
+    border-bottom: none !important;
+  }
+  /* 导航链接 */
+  .header-area .main-nav .nav li a,
+  .background-header .main-nav .nav li a,
+  .header-area .main-nav .nav li a:hover,
+  .background-header .main-nav .nav li a:hover {
+    background: transparent !important;
+    color: rgba(255, 255, 255, 0.88) !important;
+  }
+  .header-area .main-nav .nav li a:hover,
+  .background-header .main-nav .nav li a:hover,
+  .header-area .main-nav .nav li a.active {
+    background: rgba(238, 90, 36, 0.12) !important;
+    color: #fff !important;
+  }
+}
+
 /* ===== 2. Hero Banner ===== */
 @media (max-width: 768px) {
   .main-banner {
