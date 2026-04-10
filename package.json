@@ -2,6 +2,9 @@
   "name": "kaoshi",
   "version": "1.0.0",
   "private": true,
+  "scripts": {
+    "vercel-build": "echo 'static build done'"
+  },
   "dependencies": {
     "@vercel/kv": "^1.0.0"
   }
