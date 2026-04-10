@@ -36,8 +36,8 @@ const REVIEWS = [
 
 // Lucky draw prizes
 const LUCKY_PRIZES = [
-  { type: 'discount', title: '🎫 8折优惠券', desc: '全场商品打8折！学霸脑子更便宜了', weight: 30 },
-  { type: 'discount', title: '🎟️ 5折优惠券', desc: '半价抢购！这波不亏', weight: 15 },
+  { type: 'discount', title: '🎫 8折优惠券', desc: '全场商品打8折！学霸脑子更便宜了', weight: 30, code: 'DISC20', discValue: 0.8 },
+  { type: 'discount', title: '🎟️ 5折优惠券', desc: '半价抢购！这波不亏', weight: 15, code: 'DISC50', discValue: 0.5 },
   { type: 'buff', title: '🧠 隐藏款·锦鲤脑', desc: '欧气加持 +500，考试选择题蒙对率+50%', weight: 10, iq: 500 },
   { type: 'buff', title: '⚡ 隐藏款·考神附体', desc: '全科目 buff +2000，什么考试都能过', weight: 5, iq: 2000 },
   { type: 'none', title: '😭 谢谢参与', desc: '下次一定！建议多买几个脑子提升运气', weight: 30 },
@@ -48,6 +48,7 @@ const LUCKY_PRIZES = [
 let cart = [];
 let totalIq = 0;
 let discount = 1.0;
+let discountCode = null; // 服务端折扣码（抽奖获得）
 let luckyDrawCount = 3;
 let toastTimeout = null;
 
@@ -336,15 +337,15 @@ function showCheckoutModal() {
   $('#modalBody').html(html);
   openModal();
 
-  // 创建订单
+  // 创建订单（只发 items 和折扣码，价格由服务端计算）
   var orderItems = cart.map(function (c) {
-    return { id: c.id, name: c.name, emoji: c.emoji, price: c.price, qty: c.qty };
+    return { id: c.id, qty: c.qty };
   });
 
   fetch('/api/order', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ items: orderItems, total: total, discount: discount })
+    body: JSON.stringify({ items: orderItems, discountCode: discountCode })
   })
   .then(function (r) { return r.json(); })
   .then(function (data) {
@@ -353,7 +354,8 @@ function showCheckoutModal() {
       return;
     }
     currentOrderId = data.orderId;
-    showPaymentQR(total, data.orderId);
+    // 用服务端返回的价格显示二维码
+    showPaymentQR(data.order.total, data.orderId);
   })
   .catch(function () {
     $('#checkoutPayment').html('<p style="color:var(--red)">❌ 网络错误，请重试</p>');
@@ -624,8 +626,8 @@ function openLuckyDraw() {
 
     // Apply prize
     if (prize.type === 'discount') {
-      if (prize.title.indexOf('8折') >= 0) discount = 0.8;
-      else if (prize.title.indexOf('5折') >= 0) discount = 0.5;
+      discountCode = prize.code;   // 保存服务端折扣码
+      discount = prize.discValue;  // 前端显示用
       updateCartUI();
     }
 
