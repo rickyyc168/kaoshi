@@ -33,6 +33,7 @@
   <link rel="stylesheet" href="assets/css/animated.css">
   <link rel="stylesheet" href="assets/css/owl.css">
   <link rel="stylesheet" href="assets/css/custom.css">
+  <link rel="stylesheet" href="assets/css/mobile.css">
 </head>
 <body>
 
@@ -338,6 +339,57 @@
   <script src="assets/js/imagesloaded.js"></script>
   <script src="assets/js/templatemo-custom.js"></script>
   <script src="app.js"></script>
+  <script>
+  // ===== Mobile Menu Enhancement =====
+  (function() {
+    var trigger = document.querySelector('.menu-trigger');
+    var nav = document.querySelector('.header-area .nav');
+    if (!trigger || !nav) return;
+
+    // Override the default slideToggle for mobile
+    function isMobile() { return window.innerWidth <= 991; }
+
+    // Use capture phase to intercept BEFORE jQuery's slideToggle
+    trigger.addEventListener('click', function(e) {
+      if (!isMobile()) return;
+      e.stopImmediatePropagation();
+      e.preventDefault();
+      nav.classList.toggle('active');
+      trigger.classList.toggle('active');
+      // Prevent body scroll when menu is open
+      document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : '';
+    }, true);
+
+    // Close menu on link click (capture phase to beat jQuery)
+    nav.querySelectorAll('a').forEach(function(link) {
+      link.addEventListener('click', function() {
+        if (!isMobile()) return;
+        nav.classList.remove('active');
+        trigger.classList.remove('active');
+        document.body.style.overflow = '';
+      }, true);
+    });
+
+    // Close menu on ESC
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && nav.classList.contains('active')) {
+        nav.classList.remove('active');
+        trigger.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+
+    // Reset on resize to desktop
+    window.addEventListener('resize', function() {
+      if (!isMobile()) {
+        nav.classList.remove('active');
+        trigger.classList.remove('active');
+        document.body.style.overflow = '';
+        nav.style.display = '';
+      }
+    });
+  })();
+  </script>
   <script>
     // Generate brain particles in hero
     (function() {
