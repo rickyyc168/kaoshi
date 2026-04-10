@@ -2,18 +2,27 @@
 const { kv } = require('@vercel/kv');
 
 module.exports = async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Origin', req.headers['origin'] || '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   if (req.method === 'OPTIONS') return res.status(200).end();
 
   const { id } = req.query;
+  if (!id) return res.status(400).json({ error: '缺少订单号' });
 
   if (req.method === 'GET') {
     const raw = await kv.get('order:' + id);
     if (!raw) return res.status(404).json({ error: '订单不存在' });
     const order = typeof raw === 'string' ? JSON.parse(raw) : raw;
-    return res.status(200).json({ order });
+    // 只返回基本信息
+    return res.status(200).json({
+      order: {
+        id: order.id,
+        total: order.total,
+        status: order.status,
+        createdAt: order.createdAt,
+      }
+    });
   }
 
   if (req.method === 'POST') {
