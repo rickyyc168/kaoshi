@@ -45,18 +45,20 @@
 @media (max-width: 991px) {
   /* 汉堡菜单按钮优化 */
   .main-nav .menu-trigger {
-    width: 40px;
-    height: 40px;
-    display: flex;
+    display: flex !important;
+    width: 44px;
+    height: 44px;
     align-items: center;
     justify-content: center;
     right: 12px;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(238, 90, 36, 0.1);
-    border-radius: 10px;
-    border: 1px solid rgba(238, 90, 36, 0.2);
+    background: rgba(238, 90, 36, 0.12);
+    border-radius: 12px;
+    border: 1px solid rgba(238, 90, 36, 0.25);
     z-index: 1001;
+    text-indent: 0;
+    cursor: pointer;
   }
 
   .main-nav .menu-trigger span,
@@ -65,6 +67,31 @@
     background-color: #ee5a24;
     width: 22px;
     height: 2px;
+  }
+
+  /* Hamburger → X animation */
+  .main-nav .menu-trigger.active span {
+    background-color: transparent;
+  }
+  .main-nav .menu-trigger.active span:before {
+    background-color: #ee5a24;
+    transform: translateY(6px) rotate(45deg);
+  }
+  .main-nav .menu-trigger.active span:after {
+    background-color: #ee5a24;
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
+  /* 覆盖模板 CSS: 移动端隐藏导航 */
+  .header-area .main-nav .nav {
+    display: none !important;
+  }
+  .header-area .main-nav .nav.active {
+    display: flex !important;
+  }
+  /* 隐藏购物车按钮 (模板在992px下隐藏最后一个li) */
+  .header-area .main-nav .nav li:last-child {
+    display: block !important;
   }
 
   /* 导航下拉菜单全屏适配 */
@@ -86,12 +113,13 @@
     opacity: 0;
     visibility: hidden;
     transform: scale(0.95);
-    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                visibility 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 1000;
   }
 
   .main-nav .nav.active {
-    display: flex !important;
     opacity: 1;
     visibility: visible;
     transform: scale(1);
@@ -100,6 +128,7 @@
   .main-nav .nav li {
     width: 100%;
     text-align: center;
+    padding: 0;
     margin: 0;
     opacity: 0;
     transform: translateY(20px);
@@ -126,30 +155,41 @@
     padding: 16px 24px;
     font-size: 18px;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.85);
+    color: rgba(255, 255, 255, 0.88) !important;
     border-radius: 14px;
     transition: all 0.25s ease;
+    height: auto;
+    line-height: 1.5;
   }
 
   .main-nav .nav li a::after {
-    display: none;
+    display: none !important;
   }
 
   .main-nav .nav li a:hover,
-  .main-nav .nav li a:active {
+  .main-nav .nav li a:active,
+  .main-nav .nav li a.active {
     background: rgba(238, 90, 36, 0.12);
-    color: #fff;
+    color: #fff !important;
   }
 
   .main-nav .nav li:last-child {
     margin-top: 20px;
     padding-top: 20px;
+    padding-left: 0;
+    padding-right: 0;
     border-top: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .main-nav .nav li:last-child a {
+    border-radius: 12px;
+    font-weight: 600;
   }
 
   /* Logo 在移动端略缩小 */
   .main-nav .logo h4 {
     font-size: 20px;
+    line-height: 80px;
   }
 }
 

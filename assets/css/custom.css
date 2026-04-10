@@ -126,6 +126,13 @@ html { scroll-behavior: smooth; }
 .main-nav .nav li a {
   transition: color var(--transition-fast), transform var(--transition-fast);
   position: relative;
+  color: rgba(255,255,255,0.88) !important;
+}
+.main-nav .nav li a:hover {
+  color: #fff !important;
+}
+.main-nav .nav li a.active {
+  color: var(--primary) !important;
 }
 .main-nav .nav li a::after {
   content: '';
@@ -138,6 +145,32 @@ html { scroll-behavior: smooth; }
 .main-nav .nav li a:hover::after,
 .main-nav .nav li a.active::after {
   left: 0; right: 0;
+}
+
+/* 滚动后 header 保持深色主题 */
+.background-header {
+  background: rgba(11,14,26,0.95) !important;
+  backdrop-filter: blur(20px) saturate(1.5);
+  -webkit-backdrop-filter: blur(20px) saturate(1.5);
+  box-shadow: 0 2px 20px rgba(0,0,0,0.3) !important;
+}
+.background-header .logo h4,
+.background-header .main-nav .logo h4 {
+  line-height: 80px;
+  background: var(--gradient-gold);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.background-header .main-nav .nav li a {
+  color: rgba(255,255,255,0.88) !important;
+}
+.background-header .main-nav .nav li a:hover,
+.background-header .main-nav .nav li a.active {
+  color: #fff !important;
+}
+.background-header .main-red-button a {
+  color: #fff !important;
 }
 
 /* ===== HERO BANNER ===== */
