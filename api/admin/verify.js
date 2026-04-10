@@ -2,19 +2,22 @@
 const { kv } = require('@vercel/kv');
 
 module.exports = async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Origin', req.headers['origin'] || '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST,OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Authorization');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Authorization,X-Admin-Secret');
   if (req.method === 'OPTIONS') return res.status(200).end();
 
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { admin, orderId, action } = req.body || {};
+  const { orderId, action } = req.body || {};
 
-  // 管理员密码校验
-  if (admin !== process.env.ADMIN_SECRET) {
+  // 管理员鉴权 — 通过 header，不通过 body/query
+  const auth = req.headers['authorization'] || '';
+  const adminSecret = auth.startsWith('Bearer ') ? auth.slice(7) : (req.headers['x-admin-secret'] || '');
+
+  if (!adminSecret || adminSecret !== process.env.ADMIN_SECRET) {
     return res.status(401).json({ error: '无权限' });
   }
 
@@ -39,7 +42,7 @@ module.exports = async function handler(req, res) {
 
   await kv.set('order:' + orderId, JSON.stringify(order), { ex: 60 * 60 * 24 * 30 });
 
-  // 从 confirmed 列表移除
+  // 从 confirmed/pending 列表移除
   await kv.lrem('orders:confirmed', 0, orderId);
   await kv.lrem('orders:pending', 0, orderId);
 
