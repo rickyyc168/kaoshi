@@ -368,19 +368,26 @@ function showPaymentQR(total, orderId) {
     + '<img src="assets/images/wechat-qr.png" alt="微信收款" class="qr-real-img"/>'
     + '<div class="qr-amount">💰 ¥' + total.toFixed(2) + '</div>'
     + '<div class="qr-steps">'
-    + '<p class="qr-step">1️⃣ 长按或截图保存二维码，打开<strong>微信</strong>扫码</p>'
-    + '<p class="qr-step">2️⃣ 输入金额 <strong>¥' + total.toFixed(2) + '</strong>，备注填写 <strong>' + orderId + '</strong></p>'
-    + '<p class="qr-step">3️⃣ 支付完成后点击下方按钮</p>'
+    + '<p class="qr-step">1️⃣ 截图保存二维码，打开<strong>微信</strong>扫一扫 → 相册选取</p>'
+    + '<p class="qr-step">2️⃣ 输入金额 <strong>¥' + total.toFixed(2) + '</strong></p>'
+    + '<p class="qr-step">3️⃣ 复制下方订单号，粘贴到备注栏</p>'
     + '</div>'
-    + '<button class="main-button" onclick="confirmPayment(\'' + orderId + '\')">💰 ✅ 我已付款</button>'
-    + '<p class="checkout-note">⚠️ 请务必输入正确金额 ¥' + total.toFixed(2) + ' 并备注订单号 ' + orderId + '</p>'
+    + '<div class="order-id-box">'
+    + '<span class="order-id-text" id="orderIdText">' + orderId + '</span>'
+    + '<button class="order-id-copy" onclick="copyOrderId(\'' + orderId + '\', this)">📋 复制</button>'
+    + '</div>'
+    + '<button class="main-button btn-confirm-pay" onclick="confirmPayment(this, \'' + orderId + '\')">💰 ✅ 我已付款</button>'
+    + '<p class="checkout-note">⚠️ 金额必须为 ¥' + total.toFixed(2) + '，备注必须填订单号</p>'
     + '</div>';
 
   $('#checkoutPayment').html(payHtml);
+
+  // 自动保存订单号到 sessionStorage，防止切微信后丢失
+  try { sessionStorage.setItem('ks_last_order', orderId); } catch(e) {}
 }
 
-function confirmPayment(orderId) {
-  var btn = event.target;
+function confirmPayment(btn, orderId) {
+  if (!btn) return;
   btn.disabled = true;
   btn.textContent = '⏳ 提交中...';
 
@@ -430,8 +437,36 @@ function confirmPayment(orderId) {
   .catch(function () {
     btn.disabled = false;
     btn.textContent = '💰 ✅ 我已付款';
-    showToast('❌ 网络错误');
+    showToast('❌ 网络错误，请检查后重试');
   });
+}
+
+// ===== COPY ORDER ID =====
+function copyOrderId(orderId, btnEl) {
+  // 优先用 Clipboard API，降级用 textarea
+  function onSuccess() {
+    btnEl.textContent = '✅ 已复制';
+    setTimeout(function() { btnEl.textContent = '📋 复制'; }, 2000);
+  }
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(orderId).then(onSuccess).catch(function() {
+      fallbackCopy(orderId, onSuccess);
+    });
+  } else {
+    fallbackCopy(orderId, onSuccess);
+  }
+
+  function fallbackCopy(text, cb) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.cssText = 'position:fixed;left:-9999px;top:-9999px;opacity:0';
+    document.body.appendChild(ta);
+    ta.select();
+    ta.setSelectionRange(0, ta.value.length);
+    try { document.execCommand('copy'); cb(); } catch(e) { showToast('复制失败，请手动复制'); }
+    document.body.removeChild(ta);
+  }
 }
 
 // ===== BUFF CERTIFICATE =====
@@ -586,11 +621,25 @@ function shareToClipboard() {
     + '✨ 总加持智商: +' + totalIq.toLocaleString() + '\n'
     + '🎯 心诚则灵，逢考必过！\n'
     + '👉 不是裸考 — 学霸脑子玄学Buff商店';
-  navigator.clipboard.writeText(text).then(function () {
-    showToast('📋 分享文案已复制！');
-  }).catch(function () {
-    showToast('复制失败，请手动复制');
-  });
+
+  function fallbackCopy() {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.cssText = 'position:fixed;left:-9999px;top:-9999px;opacity:0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); showToast('📋 分享文案已复制！'); }
+    catch(e) { showToast('复制失败，请手动复制'); }
+    document.body.removeChild(ta);
+  }
+
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(function () {
+      showToast('📋 分享文案已复制！');
+    }).catch(fallbackCopy);
+  } else {
+    fallbackCopy();
+  }
 }
 
 // ===== MODAL =====
