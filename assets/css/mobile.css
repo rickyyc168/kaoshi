@@ -82,54 +82,62 @@
     transform: translateY(-6px) rotate(-45deg);
   }
 
-  /* 覆盖模板 CSS: 移动端隐藏导航 */
-  .header-area .main-nav .nav {
+  /* ===== 强制覆盖模板 CSS：隐藏/显示导航 ===== */
+  .header-area .main-nav .nav,
+  .background-header .main-nav .nav {
     display: none !important;
   }
-  .header-area .main-nav .nav.active {
+  .header-area .main-nav .nav.active,
+  .background-header .main-nav .nav.active {
     display: flex !important;
   }
-  /* 隐藏购物车按钮 (模板在992px下隐藏最后一个li) */
-  .header-area .main-nav .nav li:last-child {
-    display: block !important;
-  }
 
-  /* 导航下拉菜单全屏适配 */
-  .main-nav .nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(180deg, rgba(11, 14, 26, 0.98), rgba(15, 18, 30, 0.99));
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0;
-    padding: 80px 30px 40px;
-    overflow-y: auto;
-    opacity: 0;
-    visibility: hidden;
-    transform: scale(0.95);
+  /* ===== 全屏深色导航菜单 ===== */
+  .main-nav .nav,
+  .background-header .main-nav .nav {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: auto !important;
+    float: none !important;
+    margin: 0 !important;
+    background: linear-gradient(180deg, rgba(11, 14, 26, 0.98), rgba(15, 18, 30, 0.99)) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0 !important;
+    padding: 80px 30px 40px !important;
+    overflow-y: auto !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transform: scale(0.95) !important;
     transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1),
                 visibility 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-                transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 1000;
+                transform 0.35s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    z-index: 1000 !important;
   }
 
   .main-nav .nav.active {
-    opacity: 1;
-    visibility: visible;
-    transform: scale(1);
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: scale(1) !important;
   }
 
-  .main-nav .nav li {
-    width: 100%;
-    text-align: center;
-    padding: 0;
-    margin: 0;
+  /* ===== 覆盖模板 CSS：导航项样式 ===== */
+  .main-nav .nav li,
+  .header-area .main-nav .nav li,
+  .background-header .main-nav .nav li {
+    width: 100% !important;
+    text-align: center !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+    border-bottom: none !important;
+    border-top: none !important;
     opacity: 0;
     transform: translateY(20px);
   }
@@ -150,16 +158,21 @@
     to { opacity: 1; transform: translateY(0); }
   }
 
-  .main-nav .nav li a {
-    display: block;
-    padding: 16px 24px;
-    font-size: 18px;
-    font-weight: 600;
+  /* ===== 覆盖模板 CSS：导航链接样式 ===== */
+  .main-nav .nav li a,
+  .header-area .main-nav .nav li a,
+  .background-header .main-nav .nav li a {
+    display: block !important;
+    padding: 16px 24px !important;
+    font-size: 18px !important;
+    font-weight: 600 !important;
     color: rgba(255, 255, 255, 0.88) !important;
-    border-radius: 14px;
-    transition: all 0.25s ease;
-    height: auto;
-    line-height: 1.5;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 14px !important;
+    height: auto !important;
+    line-height: 1.5 !important;
+    transition: all 0.25s ease !important;
   }
 
   .main-nav .nav li a::after {
@@ -168,25 +181,34 @@
 
   .main-nav .nav li a:hover,
   .main-nav .nav li a:active,
-  .main-nav .nav li a.active {
-    background: rgba(238, 90, 36, 0.12);
+  .main-nav .nav li a.active,
+  .header-area .main-nav .nav li a:hover,
+  .background-header .main-nav .nav li a:hover,
+  .header-area .main-nav .nav li a.active {
+    background: rgba(238, 90, 36, 0.12) !important;
     color: #fff !important;
   }
 
-  .main-nav .nav li:last-child {
-    margin-top: 20px;
-    padding-top: 20px;
-    padding-left: 0;
-    padding-right: 0;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+  /* 最后一个 li（购物车按钮） */
+  .main-nav .nav li:last-child,
+  .header-area .main-nav .nav li:last-child,
+  .background-header .main-nav .nav li:last-child {
+    margin-top: 20px !important;
+    padding-top: 20px !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+    display: block !important;
   }
 
-  .main-nav .nav li:last-child a {
-    border-radius: 12px;
-    font-weight: 600;
+  .main-nav .nav li:last-child a,
+  .header-area .main-nav .nav li:last-child a,
+  .background-header .main-nav .nav li:last-child a {
+    border-radius: 12px !important;
+    font-weight: 600 !important;
   }
 
-  /* Logo 在移动端略缩小 */
+  /* Logo 在移动端 */
   .main-nav .logo h4 {
     font-size: 20px;
     line-height: 80px;
@@ -807,11 +829,31 @@
 @media (max-width: 768px) {
   .back-to-top {
     bottom: 24px;
-    right: 20px;
+    right: 90px;
     width: 44px;
     height: 44px;
     font-size: 18px;
     box-shadow: 0 4px 16px rgba(238, 90, 36, 0.4);
+  }
+}
+
+/* ===== 12b. 浮动购物车按钮 ===== */
+@media (max-width: 768px) {
+  .floating-cart {
+    bottom: 24px;
+    right: 20px;
+    width: 52px;
+    height: 52px;
+  }
+  .floating-cart-icon {
+    font-size: 22px;
+  }
+  .floating-cart-badge {
+    font-size: 11px;
+    min-width: 20px;
+    height: 20px;
+    top: -3px;
+    right: -3px;
   }
 }
 

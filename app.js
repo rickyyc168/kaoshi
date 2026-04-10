@@ -183,7 +183,8 @@ $(document).on('click', '.buff-add', function (e) {
 
   // Badge bump
   $('#cartCount').addClass('bump');
-  setTimeout(function () { $('#cartCount').removeClass('bump'); }, 300);
+  $('#floatingCartCount').addClass('bump');
+  setTimeout(function () { $('#cartCount').removeClass('bump'); $('#floatingCartCount').removeClass('bump'); }, 300);
 
   // Confetti burst
   burstConfetti(e.clientX, e.clientY, 15);
@@ -225,6 +226,10 @@ function updateCartUI() {
   totalIq = cart.reduce(function (s, c) { return s + c.iq * c.qty; }, 0);
 
   $('#cartCount').text(count);
+  $('#floatingCartCount').text(count);
+  // 有商品时给浮动按钮加样式
+  var fc = document.getElementById('floatingCart');
+  if (fc) { fc.classList.toggle('has-items', count > 0); }
   if (discount < 1) {
     $('#cartTotal').html('<span style="text-decoration:line-through;opacity:0.4;font-size:14px">¥' + subtotal.toFixed(2) + '</span> ¥' + total.toFixed(2));
   } else {
